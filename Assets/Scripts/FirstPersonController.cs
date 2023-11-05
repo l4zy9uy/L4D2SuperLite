@@ -43,16 +43,13 @@ namespace MyInputManager
 		[Tooltip("What layers the character uses as ground")]
 		public LayerMask GroundLayers;
 
-		[Header("Cinemachine")]
-		[Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-		public GameObject CinemachineCameraTarget;
 		[Tooltip("How far in degrees can you move the camera up")]
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
 		// cinemachine
-		private float _cinemachineTargetPitch;
+		private float _cameraTargetPitch;
 
 		// player
 		private float _speed;
@@ -63,13 +60,13 @@ namespace MyInputManager
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
-
 	
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		private PlayerInput _playerInput;
 #endif
 		private CharacterController _controller;
-		private GameObject _mainCamera;
+		[SerializeField]
+		private Transform _mainCamera;
 
 		private const float _threshold = 0.01f;
 
@@ -87,11 +84,6 @@ namespace MyInputManager
 
 		private void Awake()
 		{
-			// get a reference to our main camera
-			if (_mainCamera == null)
-			{
-				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			}
 		}
 
 		private void Start()
@@ -125,7 +117,6 @@ namespace MyInputManager
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-			Debug.Log(Grounded);
 		}
 
 		private void CameraRotation()
@@ -136,14 +127,14 @@ namespace MyInputManager
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
-				_cinemachineTargetPitch += MyInputManager.Instance.look.y * RotationSpeed * deltaTimeMultiplier;
+				_cameraTargetPitch += MyInputManager.Instance.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = MyInputManager.Instance.look.x * RotationSpeed * deltaTimeMultiplier;
 
 				// clamp our pitch rotation
-				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+				_cameraTargetPitch = ClampAngle(_cameraTargetPitch, BottomClamp, TopClamp);
 
 				// Update Cinemachine camera target pitch
-				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+				_mainCamera.transform.localRotation = Quaternion.Euler(_cameraTargetPitch, 0.0f, 0.0f);
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
@@ -181,7 +172,6 @@ namespace MyInputManager
 			{
 				_speed = targetSpeed;
 			}
-            Debug.Log("Speed " + _speed);
             // normalise input direction
             Vector3 inputDirection = new Vector3(MyInputManager.Instance.move.x, 0.0f, MyInputManager.Instance.move.y).normalized;
 

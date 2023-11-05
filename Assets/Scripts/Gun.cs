@@ -16,13 +16,11 @@ namespace MyInputManager
         private int _magazineSize, _bulletsPerTap;
         [SerializeField]
         private bool _allowButtonHold;
-        [SerializeField]
+
         private int _bulletsLeft, _bulletsShot;
 
         //bools 
-        [SerializeField]
         private bool _readyToShoot, _reloading;
-        [SerializeField]
         private bool _shooting;
 
         //Reference
@@ -41,52 +39,17 @@ namespace MyInputManager
         [SerializeField]
         private ParticleSystem _muzzleFlash;
         [SerializeField]
-        //public CamShake camShake;
-        private float _camShakeMagnitude, _camShakeDuration;
-        [SerializeField]
         private TextMeshProUGUI _text;
 
-        public Transform recoilPosition;
-        public Transform rotationPoint;
-
-        public float positionalRecoilSpeed = 8f;
-        public float rotationalRecoilSpeed = 8f;
-
-        public float positionalReturnSpeed = 18f;
-        public float rotationalReturnSpeed = 38f;
-
-        public Vector3 recoilRotation = new Vector3(10f, 5f, 7f);
-        public Vector3 recoilKickBack = new Vector3(0.015f, 0f, -0.2f);
-        public Vector3 originalPos;
-
-        Vector3 rotationalRecoil;
-        Vector3 positionalRecoil;
-        Vector3 rot;
-
         [SerializeField]
-        RecoilShake recoilShake;
+        private ProceduralRecoil recoil;
 
-        public PlayerInput playerInput;
-
-        private float timeSinceLastShot = 0f;
         private void Awake()
         {
             _bulletsLeft = _magazineSize;
             _readyToShoot = true;
-            originalPos = recoilPosition.localPosition;
-            Debug.Log(recoilPosition.localPosition);
-
         }
 
-        private void FixedUpdate()
-        {
-            rotationalRecoil = Vector3.Lerp(rotationalRecoil, new Vector3(0, 180f, 0), rotationalReturnSpeed * Time.deltaTime);
-            positionalRecoil = Vector3.Lerp(positionalRecoil, originalPos, positionalReturnSpeed * Time.deltaTime);
-
-            recoilPosition.localPosition = Vector3.Slerp(recoilPosition.localPosition, positionalRecoil, positionalRecoilSpeed * Time.fixedDeltaTime);
-            rot = Vector3.Slerp(rot, rotationalRecoil, rotationalRecoilSpeed * Time.fixedDeltaTime);
-            rotationPoint.localRotation = Quaternion.Euler(rot);
-        }
         private void Update()
         {
             MyInput();
@@ -122,10 +85,6 @@ namespace MyInputManager
 
             //Calculate Direction with Spread
             Vector3 direction = _fpsCam.transform.forward + new Vector3(x, y, 0);
-            recoilShake.ScreenShake(direction);
-
-            rotationalRecoil += new Vector3(-recoilRotation.x, Random.Range(-recoilRotation.y, recoilRotation.y), Random.Range(-recoilRotation.z, recoilRotation.z));
-            positionalRecoil += new Vector3(Random.Range(-recoilKickBack.x, recoilKickBack.x), Random.Range(-recoilKickBack.y, recoilKickBack.y), recoilKickBack.z);
 
             //RayCast
             if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
@@ -141,10 +100,11 @@ namespace MyInputManager
             _bulletsLeft--;
             _bulletsShot--;
 
+            recoil.recoil();
             Invoke("ResetShot", _timeBetweenShooting);
 
-            /*if (_bulletsShot > 0 && _bulletsLeft > 0)
-                Invoke("Shoot", _timeBetweenShots);*/
+            if (_bulletsShot > 0 && _bulletsLeft > 0)
+                Invoke("Shoot", _timeBetweenShots);
 
         }
         private void ResetShot()

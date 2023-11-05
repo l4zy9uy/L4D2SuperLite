@@ -28,7 +28,6 @@ namespace MyInputManager
         private void Awake()
         {
             // If there is an instance, and it's not me, delete myself.
-
             if (Instance != null && Instance != this)
             {
                 Destroy(this);
@@ -37,10 +36,6 @@ namespace MyInputManager
             {
                 Instance = this;
             }
-        }
-
-        private void Start()
-        {
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -95,7 +90,6 @@ namespace MyInputManager
                 ReloadInput(true);
             }
             else { ReloadInput(false); }
-
         }
 #endif
         private void ReloadInput(bool isPressed)
