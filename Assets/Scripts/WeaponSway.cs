@@ -16,6 +16,7 @@ namespace MyInputManager
         public float maxTiltSway;
         public float smoothAmountTilt;
         public bool tiltDirX, tiltDirY, tiltDirZ;
+        public Quaternion swayRot;
 
         Vector3 initialPos;
         Quaternion initialRot;
@@ -52,7 +53,8 @@ namespace MyInputManager
             tiltX = Mathf.Clamp(tiltX, -maxTiltSway, maxTiltSway);
             tiltY = Mathf.Clamp(tiltY, -maxTiltSway, maxTiltSway);
             Quaternion finalRot = Quaternion.Euler(new Vector3(tiltDirX?-tiltX:0, tiltDirY?-tiltY:0, tiltDirZ?-tiltY:0));
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, finalRot * initialRot, Time.deltaTime * smoothAmountTilt);
+            swayRot = Quaternion.Slerp(transform.localRotation, finalRot * initialRot, Time.deltaTime * smoothAmountTilt);
+            transform.localRotation = swayRot;
         }
     }
 }

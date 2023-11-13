@@ -1485,7 +1485,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPersonController: {fileID: 1449143550}
+  weaponSway: {fileID: 0}
   speedCurve: 0
+  smooth: 10
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
   bobExaggeration: 0
@@ -1698,6 +1700,7 @@ MonoBehaviour:
   tiltDirX: 1
   tiltDirY: 1
   tiltDirZ: 1
+  swayRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1298013732 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 07fd8518ba79b4f4a9f11cfa650a5ff1,
@@ -1711,16 +1714,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298013729}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51232b637501c1c42a5c7b1d90f1552d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firstPersonController: {fileID: 1449143550}
+  weaponSway: {fileID: 1298013731}
   speedCurve: 0
+  smooth: 8
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
-  bobLimit: {x: 0.01, y: 0.01, z: 0.01}
-  bobExaggeration: 0
+  bobLimit: {x: 0.005, y: 0.005, z: 0.005}
+  bobExaggeration: 2
   multiplier: {x: 5, y: 5, z: 5}
 --- !u!4 &1306423949 stripped
 Transform:
