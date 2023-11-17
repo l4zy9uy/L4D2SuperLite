@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -53,19 +52,17 @@ namespace MyInputManager
         private void Update()
         {
             MyInput();
-
-            //SetText
-            _text.SetText(_bulletsLeft + " / " + _magazineSize);
+            _text.SetText(_bulletsLeft + " / " + _magazineSize); // hiển thị số đạn còn lại trên súng
         }
         private void MyInput()
         {
-            if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0);
+            if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0); // kiểm tra xem có đang giữ nút bắn hay không
             
             else _shooting = MyInputManager.Instance.shoot;
 
-            if (MyInputManager.Instance.reload && _bulletsLeft < _magazineSize && !_reloading)
+            if (MyInputManager.Instance.reload && _bulletsLeft < _magazineSize && !_reloading) // kiểm tra xem có đang giữ nút reload hay không
             {
-                Reload();
+                Reload(); // Nạp đạn
             }
             //Shoot
             if (_readyToShoot && (_shooting == true) && !_reloading && _bulletsLeft > 0) //_shooting == GunState.Spray ||
@@ -76,7 +73,9 @@ namespace MyInputManager
         }
         public void Shoot()
         {
-            _muzzleFlash.Play();
+            if (!_readyToShoot) return; // == false
+            
+            _muzzleFlash.Play(); // hiệu ứng súng bắn
             _readyToShoot = false;
 
             //Spread
@@ -86,21 +85,35 @@ namespace MyInputManager
             //Calculate Direction with Spread
             Vector3 direction = _fpsCam.transform.forward + new Vector3(x, y, 0);
 
-            //RayCast
+            //Raycast để xác định đạn bắn trúng ai
             if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
             {
                 Debug.Log(_rayHit.collider.name);
-
-                /*if (rayHit.collider.CompareTag("Enemy"))
-                    rayHit.collider.GetComponent<ShootingAi>().TakeDamage(damage);*/
+                // Nếu bắn trúng zombie thì gọi hàm takeDamage() của zombie
+                if (_rayHit.collider.CompareTag("Zombie"))
+                {
+                    _rayHit.collider.GetComponent<Zombie>().takeDamage(_damage);
+                    _readyToShoot = true;
+                    _bulletsLeft--;
+                    _bulletsShot--;
+                    
+                    recoil.recoil();
+                    Invoke("ResetShot", _timeBetweenShooting);
+                    if (_bulletsShot > 0 && _bulletsLeft > 0)
+                        Invoke("Shoot", _timeBetweenShots);
+                    
+                }
             }
 
-            //Graphics
+            //Hiển thị đồ hoạ đạn bắn trúng tường
             Instantiate(_bulletHoleGraphic, _rayHit.point, Quaternion.Euler(0, 180, 0));
+            //Cập nhật số đạn còn lại
             _bulletsLeft--;
             _bulletsShot--;
 
             recoil.recoil();
+
+            // Gọi resetShot sau khoảng thời gian _timeBetweenShooting
             Invoke("ResetShot", _timeBetweenShooting);
 
             if (_bulletsShot > 0 && _bulletsLeft > 0)
