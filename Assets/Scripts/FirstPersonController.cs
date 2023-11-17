@@ -3,8 +3,6 @@
 using UnityEngine.InputSystem;
 #endif
 
-namespace MyInputManager
-{
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
@@ -122,13 +120,13 @@ namespace MyInputManager
 		private void CameraRotation()
 		{
 			// if there is an input
-			if (MyInputManager.Instance.look.sqrMagnitude >= _threshold)
+			if (InputManager.Instance.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
-				_cameraTargetPitch += MyInputManager.Instance.look.y * RotationSpeed * deltaTimeMultiplier;
-				_rotationVelocity = MyInputManager.Instance.look.x * RotationSpeed * deltaTimeMultiplier;
+				_cameraTargetPitch += InputManager.Instance.look.y * RotationSpeed * deltaTimeMultiplier;
+				_rotationVelocity = InputManager.Instance.look.x * RotationSpeed * deltaTimeMultiplier;
 
 				// clamp our pitch rotation
 				_cameraTargetPitch = ClampAngle(_cameraTargetPitch, BottomClamp, TopClamp);
@@ -144,19 +142,19 @@ namespace MyInputManager
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = MyInputManager.Instance.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = InputManager.Instance.sprint ? SprintSpeed : MoveSpeed;
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
 			// note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is no input, set the target speed to 0
-			if (MyInputManager.Instance.move == Vector2.zero) targetSpeed = 0.0f;
+			if (InputManager.Instance.move == Vector2.zero) targetSpeed = 0.0f;
 
 			// a reference to the players current horizontal velocity
 			float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
 			float speedOffset = 0.1f;
-			float inputMagnitude = MyInputManager.Instance.analogMovement ? MyInputManager.Instance.move.magnitude : 1f;
+			float inputMagnitude = InputManager.Instance.analogMovement ? InputManager.Instance.move.magnitude : 1f;
 
 			// accelerate or decelerate to target speed
 			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
@@ -173,14 +171,14 @@ namespace MyInputManager
 				_speed = targetSpeed;
 			}
             // normalise input direction
-            Vector3 inputDirection = new Vector3(MyInputManager.Instance.move.x, 0.0f, MyInputManager.Instance.move.y).normalized;
+            Vector3 inputDirection = new Vector3(InputManager.Instance.move.x, 0.0f, InputManager.Instance.move.y).normalized;
 
 			// note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
 			// if there is a move input rotate player when the player is moving
-			if (MyInputManager.Instance.move != Vector2.zero)
+			if (InputManager.Instance.move != Vector2.zero)
 			{
 				// move
-				inputDirection = transform.right * MyInputManager.Instance.move.x + transform.forward * MyInputManager.Instance.move.y;
+				inputDirection = transform.right * InputManager.Instance.move.x + transform.forward * InputManager.Instance.move.y;
 			}
 
 			// move the player
@@ -201,7 +199,7 @@ namespace MyInputManager
 				}
 
 				// Jump
-				if (MyInputManager.Instance.jump && _jumpTimeoutDelta <= 0.0f)
+				if (InputManager.Instance.jump && _jumpTimeoutDelta <= 0.0f)
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -225,7 +223,7 @@ namespace MyInputManager
 				}
 
 				// if we are not grounded, do not jump
-				MyInputManager.Instance.jump = false;
+				InputManager.Instance.jump = false;
 			}
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
@@ -254,4 +252,3 @@ namespace MyInputManager
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
 	}
-}

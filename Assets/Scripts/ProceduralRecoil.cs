@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ProceduralRecoil : MonoBehaviour
 {
-    [SerializeField]
     private Vector3 currentRotation;
-    [SerializeField]
     private Vector3 targetRotation;
-    [SerializeField]
     private Vector3 targetPosition;
-    [SerializeField]
     private Vector3 currentPosition;
-    [SerializeField]
     private Vector3 initialGunPosition;
 
     [SerializeField] private float recoilX;
