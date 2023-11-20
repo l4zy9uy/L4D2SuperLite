@@ -205,6 +205,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
+--- !u!1 &164080159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: b812e42521a5a27499e76cc5ed56e3ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1523462593}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &291125558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3012,6 +3018,27 @@ MonoBehaviour:
   tiltDirY: 1
   tiltDirZ: 1
   swayRot: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &630300328
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630300321}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9bda22cd94a49b45822362bf848c7d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &718536361
 GameObject:
   m_ObjectHideFlags: 0
@@ -3256,6 +3283,53 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 771764609}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &800123489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 800123491}
+  - component: {fileID: 800123490}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &800123490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800123489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7259d3f09945ba4bb23725e2bd1d014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ammo: {fileID: 291125560}
+  weaponController: {fileID: 1558416632}
+  activeGun: {fileID: 0}
+--- !u!4 &800123491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800123489}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8103038, y: 2.381988, z: 2.6561687}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &874605735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3638,9 +3712,12 @@ MonoBehaviour:
   _range: 100
   _reloadTime: 1
   _timeBetweenShots: 0
-  _magazineSize: 30
   _bulletsPerTap: 1
   _allowButtonHold: 1
+  _gunType: 0
+  _bulletsLeft: 0
+  _bulletsShot: 0
+  _magazineSize: 30
   _fpsCam: {fileID: 1941976884}
   _attackPoint: {fileID: 1720044748}
   _whatIsEnemy:
@@ -3649,7 +3726,6 @@ MonoBehaviour:
   _bulletHoleGraphic: {fileID: 9154229115824779020, guid: b969d3cc2f2dbeb47b4daf36c0ff6390,
     type: 3}
   _muzzleFlash: {fileID: 771764610}
-  _text: {fileID: 291125560}
   recoil: {fileID: 934639786}
 --- !u!114 &934639786
 MonoBehaviour:
@@ -4439,10 +4515,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 1405679291}
-  - {fileID: 718536361}
-  - {fileID: 25767495}
+  - {fileID: 934639785}
+  - {fileID: 1753255094}
+  - {fileID: 1867224533}
   weaponIndex: 0
+  activeGun: {fileID: 0}
 --- !u!1 &1600747075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4547,6 +4624,64 @@ Transform:
   m_Father: {fileID: 934639782}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1753255090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: bf2593fe0c804b84688e307cfb1ddfae,
+    type: 3}
+  m_PrefabInstance: {fileID: 936168863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1753255093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753255090}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6def9ff1d7e7a4545ad2cf06dc9e1115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilX: 0
+  recoilY: 0
+  recoilZ: 0
+  kickbackz: 0
+  snappiness: 0
+  returnAmount: 0
+  cam: {fileID: 0}
+--- !u!114 &1753255094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753255090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a715c21241f5d4fbc6b9afca36b3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 20
+  _timeBetweenShooting: 0.5
+  _spread: 0.1
+  _range: 50
+  _reloadTime: 1
+  _timeBetweenShots: 0
+  _bulletsPerTap: 5
+  _allowButtonHold: 1
+  _gunType: 1
+  _bulletsLeft: 0
+  _bulletsShot: 0
+  _magazineSize: 10
+  _fpsCam: {fileID: 1941976884}
+  _attackPoint: {fileID: 1720044748}
+  _whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 1
+  _bulletHoleGraphic: {fileID: 9154229115824779020, guid: b969d3cc2f2dbeb47b4daf36c0ff6390,
+    type: 3}
+  _muzzleFlash: {fileID: 771764610}
+  recoil: {fileID: 1753255093}
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
@@ -4751,6 +4886,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1523462593}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1867224533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164080159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a715c21241f5d4fbc6b9afca36b3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 0
+  _timeBetweenShooting: 0
+  _spread: 0
+  _range: 0
+  _reloadTime: 0
+  _timeBetweenShots: 0
+  _bulletsPerTap: 0
+  _allowButtonHold: 0
+  _gunType: 2
+  _bulletsLeft: 0
+  _bulletsShot: 0
+  _magazineSize: 0
+  _fpsCam: {fileID: 0}
+  _attackPoint: {fileID: 0}
+  _whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 0
+  _bulletHoleGraphic: {fileID: 0}
+  _muzzleFlash: {fileID: 0}
+  recoil: {fileID: 0}
 --- !u!1001 &1941976882
 PrefabInstance:
   m_ObjectHideFlags: 0

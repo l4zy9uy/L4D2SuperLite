@@ -3,6 +3,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 
+enum GunType
+{
+    AutomaticGun, Shotgun, PistolGun
+}
 public class Gun : MonoBehaviour
 {
     //Gun stats
@@ -11,11 +15,16 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
     [SerializeField]
-    private int _magazineSize, _bulletsPerTap;
+    private int _bulletsPerTap;
     [SerializeField]
     private bool _allowButtonHold;
+    [SerializeField]
+    private GunType _gunType;
 
-    private int _bulletsLeft, _bulletsShot;
+    [SerializeField]
+    public int _bulletsLeft;
+    public int _bulletsShot;
+    public int _magazineSize;
 
     //bools 
     private bool _readyToShoot, _reloading;
@@ -36,8 +45,8 @@ public class Gun : MonoBehaviour
     private GameObject _bulletHoleGraphic;
     [SerializeField]
     private ParticleSystem _muzzleFlash;
-    [SerializeField]
-    private TextMeshProUGUI _text;
+    /*[SerializeField]
+    private TextMeshProUGUI _text;*/
 
     [SerializeField]
     private ProceduralRecoil recoil;
@@ -48,17 +57,27 @@ public class Gun : MonoBehaviour
         _readyToShoot = true;
     }
 
+    private void Start()
+    {
+        SetupStats();
+    }
+
+    private void SetupStats()
+    {
+
+    }
+
     private void Update()
     {
         MyInput();
 
         //SetText
-        _text.SetText(_bulletsLeft + " / " + _magazineSize);
+        //_text.SetText(_bulletsLeft + " / " + _magazineSize);
     }
     private void MyInput()
     {
         if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0);
-            
+
         else _shooting = InputManager.Instance.shoot;
 
         if (InputManager.Instance.reload && _bulletsLeft < _magazineSize && !_reloading)
@@ -95,14 +114,17 @@ public class Gun : MonoBehaviour
 
         //Graphics
         Instantiate(_bulletHoleGraphic, _rayHit.point, Quaternion.Euler(0, 180, 0));
-        _bulletsLeft--;
+        if (_gunType != GunType.Shotgun || _bulletsShot <= 1)
+            _bulletsLeft--;
         _bulletsShot--;
-
         recoil.recoil();
         Invoke("ResetShot", _timeBetweenShooting);
 
+        //this invoking supports multi bullets per-shot
         if (_bulletsShot > 0 && _bulletsLeft > 0)
+        {
             Invoke("Shoot", _timeBetweenShots);
+        }
 
     }
     private void ResetShot()

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public GameObject[] weapons = new GameObject[3];
+    public Gun[] weapons = new Gun[3];
     public int weaponIndex;
+    public Gun activeGun;
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +39,10 @@ public class WeaponController : MonoBehaviour
     {
         for(int i = 0; i < weapons.Length; i++)
         {
-            weapons[i].SetActive(false);
+            weapons[i].gameObject.SetActive(false);
         }
-        weapons[index].SetActive(true);
+        weapons[index].gameObject.SetActive(true);
         weaponIndex = index;
+        activeGun = weapons[weaponIndex];
     }
 }
