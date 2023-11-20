@@ -6,11 +6,11 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
    [SerializeField] private int HP = 100;
-   private Animator animator;
+   //private Animator animator;
 
    private void Start()
    {
-      animator = GetComponent<Animator>();
+      //animator = GetComponent<Animator>();
    }
 
    public void takeDamage(int damage)
@@ -18,12 +18,12 @@ public class Zombie : MonoBehaviour
       HP -= damage;
       if (HP <= 0)
       {
-         animator.SetTrigger("DIE");
+         //animator.SetTrigger("DIE");
          Destroy(gameObject);
       }
       else
       {
-         animator.SetTrigger("DAMAGE");
+         //animator.SetTrigger("DAMAGE");
       }
    }
 }

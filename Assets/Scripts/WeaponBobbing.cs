@@ -56,7 +56,7 @@ namespace MyInputManager
             BobOffset();
             BobRotation();
             CompositePositionRotation();
-            Invoke("result", 1.0f);
+            //Invoke("result", 1.0f);
         }
 
         private void result()

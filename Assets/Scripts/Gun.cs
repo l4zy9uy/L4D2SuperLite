@@ -90,18 +90,10 @@ namespace MyInputManager
             {
                 Debug.Log(_rayHit.collider.name);
                 // Nếu bắn trúng zombie thì gọi hàm takeDamage() của zombie
-                if (_rayHit.collider.CompareTag("Zombie"))
+                Zombie zombie = _rayHit.collider.GetComponent<Zombie>();
+                if (zombie != null)
                 {
-                    _rayHit.collider.GetComponent<Zombie>().takeDamage(_damage);
-                    _readyToShoot = true;
-                    _bulletsLeft--;
-                    _bulletsShot--;
-                    
-                    recoil.recoil();
-                    Invoke("ResetShot", _timeBetweenShooting);
-                    if (_bulletsShot > 0 && _bulletsLeft > 0)
-                        Invoke("Shoot", _timeBetweenShots);
-                    
+                    zombie.takeDamage(20); // Replace damageAmount with the actual damage you want to deal
                 }
             }
 
