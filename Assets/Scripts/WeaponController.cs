@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
@@ -8,6 +9,9 @@ public class WeaponController : MonoBehaviour
     public Gun[] weapons = new Gun[3];
     public int weaponIndex;
     public Gun activeGun;
+    public Transform leftGunGrip;
+    public Transform rightGunGrip;
+    public Transform weaponParent;
 
     // Start is called before the first frame update
     void Start()
@@ -44,5 +48,17 @@ public class WeaponController : MonoBehaviour
         weapons[index].gameObject.SetActive(true);
         weaponIndex = index;
         activeGun = weapons[weaponIndex];
+    }
+
+    [ContextMenu("Save weapon pose")]
+    void SaveWeaponPose()
+    {
+        GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
+        recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(leftGunGrip.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(rightGunGrip.gameObject, false);
+        recorder.TakeSnapshot(0.0f);
+        recorder.SaveToClip(activeGun._animationClip);
+        UnityEditor.AssetDatabase.SaveAssets();
     }
 }

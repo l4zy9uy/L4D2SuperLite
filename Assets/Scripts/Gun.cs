@@ -45,11 +45,12 @@ public class Gun : MonoBehaviour
     private GameObject _bulletHoleGraphic;
     [SerializeField]
     private ParticleSystem _muzzleFlash;
-    /*[SerializeField]
-    private TextMeshProUGUI _text;*/
 
     [SerializeField]
     private ProceduralRecoil recoil;
+
+    [SerializeField]
+    public AnimationClip _animationClip;
 
     private void Awake()
     {
@@ -57,24 +58,7 @@ public class Gun : MonoBehaviour
         _readyToShoot = true;
     }
 
-    private void Start()
-    {
-        SetupStats();
-    }
-
-    private void SetupStats()
-    {
-
-    }
-
     private void Update()
-    {
-        MyInput();
-
-        //SetText
-        //_text.SetText(_bulletsLeft + " / " + _magazineSize);
-    }
-    private void MyInput()
     {
         if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0);
 
@@ -94,6 +78,7 @@ public class Gun : MonoBehaviour
     public void Shoot()
     {
         _muzzleFlash.Play();
+        recoil.recoil();
         _readyToShoot = false;
 
         //Spread
@@ -107,31 +92,31 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
         {
             Debug.Log(_rayHit.collider.name);
-
-            /*if (rayHit.collider.CompareTag("Enemy"))
-                rayHit.collider.GetComponent<ShootingAi>().TakeDamage(damage);*/
+            Debug.Log(transform.rotation);
+            Debug.Log(_rayHit.distance);
+            //Graphics
+            Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
         }
-
-        //Graphics
-        Instantiate(_bulletHoleGraphic, _rayHit.point, Quaternion.Euler(0, 180, 0));
-        if (_gunType != GunType.Shotgun || _bulletsShot <= 1)
-            _bulletsLeft--;
+        if (_gunType != GunType.Shotgun || _bulletsShot <= 1) _bulletsLeft--;
         _bulletsShot--;
-        recoil.recoil();
         Invoke("ResetShot", _timeBetweenShooting);
 
-        //this invoking supports multi bullets per-shot
+        Burst();
+    }
+
+    //this invoking supports multi bullets per-shot
+    private void Burst()
+    {
         if (_bulletsShot > 0 && _bulletsLeft > 0)
         {
             Invoke("Shoot", _timeBetweenShots);
         }
-
     }
     private void ResetShot()
     {
         _readyToShoot = true;
     }
-    public void Reload()
+    private void Reload()
     {
         _reloading = true;
         Invoke("ReloadFinished", _reloadTime);
