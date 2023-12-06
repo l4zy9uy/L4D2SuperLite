@@ -12,6 +12,7 @@ public class WeaponController : MonoBehaviour
     public Transform leftGunGrip;
     public Transform rightGunGrip;
     public Transform weaponParent;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -26,16 +27,25 @@ public class WeaponController : MonoBehaviour
         {
             switchWeapon(0);
             InputManager.Instance.primaryWeapon = false;
+            animator.SetBool("1", true);
+            animator.SetBool("2", false);
+            animator.SetBool("3", false);
         }
         if(InputManager.Instance.secondaryWeapon)
         {
             switchWeapon(1);
             InputManager.Instance.secondaryWeapon = false;
+            animator.SetBool("2", true);
+            animator.SetBool("1", false);
+            animator.SetBool("3", false);
         }
         if( InputManager.Instance.ternaryWeapon)
         {
             switchWeapon(2);
             InputManager.Instance.ternaryWeapon = false;
+            animator.SetBool("3", true);
+            animator.SetBool("2", false);
+            animator.SetBool("1", false);
         }
     }
 
