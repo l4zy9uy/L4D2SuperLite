@@ -11,6 +11,8 @@ public class WeaponController : MonoBehaviour
     public Gun activeGun;
     public Transform leftGunGrip;
     public Transform rightGunGrip;
+    public Transform hipR;
+    public Transform hipL;
     public Transform weaponParent;
     public Animator animator;
 
@@ -67,6 +69,8 @@ public class WeaponController : MonoBehaviour
         recorder.BindComponentsOfType<Transform>(weaponParent.gameObject, false);
         recorder.BindComponentsOfType<Transform>(leftGunGrip.gameObject, false);
         recorder.BindComponentsOfType<Transform>(rightGunGrip.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(hipL.gameObject, false);
+        recorder.BindComponentsOfType<Transform>(hipR.gameObject, false);
         recorder.TakeSnapshot(0.0f);
         recorder.SaveToClip(activeGun._animationClip);
         UnityEditor.AssetDatabase.SaveAssets();
