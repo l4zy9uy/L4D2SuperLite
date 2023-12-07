@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using System.Collections;
 #endif
 
 	[RequireComponent(typeof(CharacterController))]
@@ -59,6 +60,9 @@ using UnityEngine.InputSystem;
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 	
+		// health bar
+		public ProgressBar healthBar;
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		private PlayerInput _playerInput;
 #endif
@@ -82,6 +86,16 @@ using UnityEngine.InputSystem;
 
 		private void Awake()
 		{
+			if (healthBar != null)
+        	{
+            	// Đặt giá trị thanh máu thành 100
+            	healthBar.BarValue = 100f;
+				StartCoroutine(DecreaseHealthOverTime());
+        	}
+        	else
+        	{
+            	Debug.LogError("HealthBar is not assigned to the FirstPersonController. Please assign it in the Inspector.");
+        	}
 		}
 
 		private void Start()
@@ -96,6 +110,8 @@ using UnityEngine.InputSystem;
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+			
+			
 		}
 
 		private void Update()
@@ -251,4 +267,39 @@ using UnityEngine.InputSystem;
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+		public void TakeDamage(float damage)
+   		{
+        	healthBar.UpdateValue(healthBar.BarValue - damage); // Giả sử damage là một số dương
+    	}
+
+    	// Gọi khi hồi phục máu
+    	public void Heal(float healAmount)
+    	{
+			if(healthBar.BarValue + healAmount > 100) {
+				healthBar.UpdateValue(100);
+			} else {
+				healthBar.UpdateValue(healthBar.BarValue + healAmount);// Giả sử healAmount là một số dương
+			}
+    	}
+
+		//for testing decrease health
+		private IEnumerator DecreaseHealthOverTime()
+    {
+        for(int i = 1; i <= 4; i++)
+        {
+            yield return new WaitForSeconds(5f); // Đợi 5 giây
+
+            // Giảm giá trị healthBar đi 10
+            healthBar.BarValue -= 10f;
+
+            // Kiểm tra xem giá trị healthBar đã giảm xuống dưới 0 chưa
+            if (healthBar.BarValue <= 0)
+            {
+                // Xử lý khi thanh máu hết
+                Debug.Log("Health depleted!");
+                break; // Kết thúc coroutine nếu thanh máu hết
+            }
+        }
+    }
 	}
