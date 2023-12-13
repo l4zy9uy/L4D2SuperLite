@@ -19,6 +19,7 @@ public class WeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //default weapon is primary weapon
         switchWeapon(0);
     }
 

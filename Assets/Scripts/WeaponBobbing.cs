@@ -53,13 +53,5 @@ public class WeaponBobbing : MonoBehaviour
         BobOffset();
         BobRotation();
         CompositePositionRotation();
-        //Invoke("result", 1.0f);
-    }
-
-    private void result()
-    {
-        Debug.Log("rotation " + bobEulerRotation);
-        Debug.Log("position " + bobPosition);
-        Debug.Log("move " + Input.GetAxis("Horizontal") + " " + Input.GetAxis("Vertical"));
     }
 }

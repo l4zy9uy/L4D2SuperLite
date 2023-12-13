@@ -448,6 +448,7 @@ MonoBehaviour:
   _bulletsLeft: 0
   _bulletsShot: 0
   _magazineSize: 30
+  _currentBullets: 40
   _fpsCam: {fileID: 205025484}
   _attackPoint: {fileID: 1507052916}
   _whatIsEnemy:
@@ -458,6 +459,7 @@ MonoBehaviour:
   _muzzleFlash: {fileID: 1273374615}
   recoil: {fileID: 883802314}
   _animationClip: {fileID: 7400000, guid: f2c4da3b0f2e7c34eaf723e97d21199d, type: 2}
+  numReloadBullets: 0
 --- !u!1 &123528798
 GameObject:
   m_ObjectHideFlags: 0
@@ -3609,7 +3611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7259d3f09945ba4bb23725e2bd1d014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammo: {fileID: 0}
+  _ammo: {fileID: 291125560}
   weaponController: {fileID: 1656307734}
   activeGun: {fileID: 0}
 --- !u!4 &1005086965

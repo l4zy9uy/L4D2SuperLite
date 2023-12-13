@@ -25,6 +25,7 @@ public class Gun : MonoBehaviour
     public int _bulletsLeft;
     public int _bulletsShot;
     public int _magazineSize;
+    public int _currentBullets;
 
     //bools 
     private bool _readyToShoot, _reloading;
@@ -91,9 +92,6 @@ public class Gun : MonoBehaviour
         //RayCast
         if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
         {
-            Debug.Log(_rayHit.collider.name);
-            Debug.Log(transform.rotation);
-            Debug.Log(_rayHit.distance);
             //Graphics
             Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
         }
@@ -112,6 +110,8 @@ public class Gun : MonoBehaviour
             Invoke("Shoot", _timeBetweenShots);
         }
     }
+
+    //Reser shot for bursting (like shotgun, etc, ...)
     private void ResetShot()
     {
         _readyToShoot = true;
@@ -123,7 +123,17 @@ public class Gun : MonoBehaviour
     }
     private void ReloadFinished()
     {
-        _bulletsLeft = _magazineSize;
+        int numReloadBullets = _magazineSize - _bulletsLeft;
+        if( numReloadBullets <= _currentBullets )
+        {
+            _currentBullets -= numReloadBullets;
+            _bulletsLeft = _magazineSize;
+        }
+        else
+        {
+            _bulletsLeft = _bulletsLeft + _currentBullets;
+            _currentBullets = 0;
+        }
         _reloading = false;
     }
 
