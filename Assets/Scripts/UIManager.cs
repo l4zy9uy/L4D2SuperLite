@@ -21,6 +21,6 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         activeGun = weaponController.activeGun;
-        _ammo.SetText(activeGun._bulletsLeft + " / " + activeGun._magazineSize);
+        _ammo.SetText(activeGun._bulletsLeft + " / " + activeGun._currentBullets);
     }
 }
