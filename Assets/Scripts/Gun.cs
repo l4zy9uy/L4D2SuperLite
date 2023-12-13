@@ -1,145 +1,131 @@
-
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 
-enum GunType
+namespace MyInputManager
 {
-    AutomaticGun, Shotgun, PistolGun
-}
-public class Gun : MonoBehaviour
-{
-    //Gun stats
-    [SerializeField]
-    private int _damage;
-    [SerializeField]
-    private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
-    [SerializeField]
-    private int _bulletsPerTap;
-    [SerializeField]
-    private bool _allowButtonHold;
-    [SerializeField]
-    private GunType _gunType;
-
-    [SerializeField]
-    public int _bulletsLeft;
-    public int _bulletsShot;
-    public int _magazineSize;
-
-    //bools 
-    private bool _readyToShoot, _reloading;
-    private bool _shooting;
-
-    //Reference
-    [SerializeField]
-    private Camera _fpsCam;
-    [SerializeField]
-    private Transform _attackPoint;
-    [SerializeField]
-    private RaycastHit _rayHit;
-    [SerializeField]
-    private LayerMask _whatIsEnemy;
-
-    //Graphics
-    [SerializeField]
-    private GameObject _bulletHoleGraphic;
-    [SerializeField]
-    private ParticleSystem _muzzleFlash;
-    /*[SerializeField]
-    private TextMeshProUGUI _text;*/
-
-    [SerializeField]
-    private ProceduralRecoil recoil;
-
-    private void Awake()
+    public class Gun : MonoBehaviour
     {
-        _bulletsLeft = _magazineSize;
-        _readyToShoot = true;
-    }
+        //Gun stats
+        [SerializeField]
+        private int _damage;
+        [SerializeField]
+        private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
+        [SerializeField]
+        private int _magazineSize, _bulletsPerTap;
+        [SerializeField]
+        private bool _allowButtonHold;
 
-    private void Start()
-    {
-        SetupStats();
-    }
+        private int _bulletsLeft, _bulletsShot;
 
-    private void SetupStats()
-    {
+        //bools 
+        private bool _readyToShoot, _reloading;
+        private bool _shooting;
 
-    }
-
-    private void Update()
-    {
-        MyInput();
-
-        //SetText
-        //_text.SetText(_bulletsLeft + " / " + _magazineSize);
-    }
-    private void MyInput()
-    {
-        if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0);
-
-        else _shooting = InputManager.Instance.shoot;
-
-        if (InputManager.Instance.reload && _bulletsLeft < _magazineSize && !_reloading)
-        {
-            Reload();
-        }
-        //Shoot
-        if (_readyToShoot && (_shooting == true) && !_reloading && _bulletsLeft > 0) //_shooting == GunState.Spray ||
-        {
-            _bulletsShot = _bulletsPerTap;
-            Shoot();
-        }
-    }
-    public void Shoot()
-    {
-        _muzzleFlash.Play();
-        _readyToShoot = false;
-
-        //Spread
-        float x = Random.Range(-_spread, _spread);
-        float y = Random.Range(-_spread, _spread);
-
-        //Calculate Direction with Spread
-        Vector3 direction = _fpsCam.transform.forward + new Vector3(x, y, 0);
-
-        //RayCast
-        if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
-        {
-            Debug.Log(_rayHit.collider.name);
-
-            /*if (rayHit.collider.CompareTag("Enemy"))
-                rayHit.collider.GetComponent<ShootingAi>().TakeDamage(damage);*/
-        }
+        //Reference
+        [SerializeField]
+        private Camera _fpsCam;
+        [SerializeField]
+        private Transform _attackPoint;
+        [SerializeField]
+        private RaycastHit _rayHit;
+        [SerializeField]
+        private LayerMask _whatIsEnemy;
 
         //Graphics
-        Instantiate(_bulletHoleGraphic, _rayHit.point, Quaternion.Euler(0, 180, 0));
-        if (_gunType != GunType.Shotgun || _bulletsShot <= 1)
-            _bulletsLeft--;
-        _bulletsShot--;
-        recoil.recoil();
-        Invoke("ResetShot", _timeBetweenShooting);
+        [SerializeField]
+        private GameObject _bulletHoleGraphic;
+        [SerializeField]
+        private ParticleSystem _muzzleFlash;
+        [SerializeField]
+        private TextMeshProUGUI _text;
 
-        //this invoking supports multi bullets per-shot
-        if (_bulletsShot > 0 && _bulletsLeft > 0)
+        [SerializeField]
+        private ProceduralRecoil recoil;
+
+        private void Awake()
         {
-            Invoke("Shoot", _timeBetweenShots);
+            _bulletsLeft = _magazineSize;
+            _readyToShoot = true;
+        }
+
+        private void Update()
+        {
+            MyInput();
+            _text.SetText(_bulletsLeft + " / " + _magazineSize); // hiển thị số đạn còn lại trên súng
+        }
+        private void MyInput()
+        {
+            if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0); // kiểm tra xem có đang giữ nút bắn hay không
+            
+            else _shooting = MyInputManager.Instance.shoot;
+
+            if (MyInputManager.Instance.reload && _bulletsLeft < _magazineSize && !_reloading) // kiểm tra xem có đang giữ nút reload hay không
+            {
+                Reload(); // Nạp đạn
+            }
+            //Shoot
+            if (_readyToShoot && (_shooting == true) && !_reloading && _bulletsLeft > 0) //_shooting == GunState.Spray ||
+            {
+                _bulletsShot = _bulletsPerTap;
+                Shoot();
+            }
+        }
+        public void Shoot()
+        {
+            if (!_readyToShoot) return; // == false
+            
+            _muzzleFlash.Play(); // hiệu ứng súng bắn
+            _readyToShoot = false;
+
+            //Spread
+            float x = Random.Range(-_spread, _spread);
+            float y = Random.Range(-_spread, _spread);
+
+            //Calculate Direction with Spread
+            Vector3 direction = _fpsCam.transform.forward + new Vector3(x, y, 0);
+
+            //Raycast để xác định đạn bắn trúng ai
+            if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
+            {
+                Debug.Log(_rayHit.collider.name);
+                // Nếu bắn trúng zombie thì gọi hàm takeDamage() của zombie
+                Zombie zombie = _rayHit.collider.GetComponent<Zombie>();
+                if (zombie != null)
+                {
+                    zombie.takeDamage(20); // Replace damageAmount with the actual damage you want to deal
+                }
+            }
+
+            //Hiển thị đồ hoạ đạn bắn trúng tường
+            Instantiate(_bulletHoleGraphic, _rayHit.point, Quaternion.Euler(0, 180, 0));
+            //Cập nhật số đạn còn lại
+            _bulletsLeft--;
+            _bulletsShot--;
+
+            recoil.recoil();
+
+            // Gọi resetShot sau khoảng thời gian _timeBetweenShooting
+            Invoke("ResetShot", _timeBetweenShooting);
+
+            if (_bulletsShot > 0 && _bulletsLeft > 0)
+                Invoke("Shoot", _timeBetweenShots);
+
+        }
+        private void ResetShot()
+        {
+            _readyToShoot = true;
+        }
+        public void Reload()
+        {
+            _reloading = true;
+            Invoke("ReloadFinished", _reloadTime);
+        }
+        private void ReloadFinished()
+        {
+            _bulletsLeft = _magazineSize;
+            _reloading = false;
         }
 
     }
-    private void ResetShot()
-    {
-        _readyToShoot = true;
-    }
-    public void Reload()
-    {
-        _reloading = true;
-        Invoke("ReloadFinished", _reloadTime);
-    }
-    private void ReloadFinished()
-    {
-        _bulletsLeft = _magazineSize;
-        _reloading = false;
-    }
-
 }
