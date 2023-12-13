@@ -385,45 +385,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 77050357}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &77050360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77050359}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6def9ff1d7e7a4545ad2cf06dc9e1115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recoilX: -2
-  recoilY: 2
-  recoilZ: 1
-  kickbackz: 0.2
-  snappiness: 5
-  returnAmount: 8
-  cam: {fileID: 205025482}
---- !u!114 &77050361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77050359}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51232b637501c1c42a5c7b1d90f1552d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstPersonController: {fileID: 1451051920}
-  weaponSway: {fileID: 0}
-  speedCurve: 0
-  smooth: 10
-  travelLimit: {x: 0.025, y: 0.025, z: 0.025}
-  bobLimit: {x: 0.01, y: 0.01, z: 0.01}
-  bobExaggeration: 0
-  multiplier: {x: 5, y: 5, z: 5}
 --- !u!114 &77050362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,10 +406,10 @@ MonoBehaviour:
   _bulletsPerTap: 1
   _allowButtonHold: 1
   _gunType: 0
-  _bulletsLeft: 0
-  _bulletsShot: 0
-  _magazineSize: 30
-  _currentBullets: 40
+  <bulletsLeft>k__BackingField: 30
+  <_bulletsShot>k__BackingField: 1
+  <_magazineSize>k__BackingField: 30
+  <_currentBullets>k__BackingField: 60
   _fpsCam: {fileID: 205025484}
   _attackPoint: {fileID: 1507052916}
   _whatIsEnemy:
@@ -458,8 +419,7 @@ MonoBehaviour:
     type: 3}
   _muzzleFlash: {fileID: 1273374615}
   recoil: {fileID: 883802314}
-  _animationClip: {fileID: 7400000, guid: f2c4da3b0f2e7c34eaf723e97d21199d, type: 2}
-  numReloadBullets: 0
+  <_animationClip>k__BackingField: {fileID: 0}
 --- !u!1 &123528798
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +898,7 @@ GameObject:
   - component: {fileID: 291125561}
   - component: {fileID: 291125560}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3550,6 +3510,28 @@ MonoBehaviour:
   - {fileID: 883802267}
   - {fileID: 883802268}
   - {fileID: 883802246}
+--- !u!114 &883802316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883802310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6bfeb94b456e144abb736210675941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.2
+  maxSway: 1
+  smoothAmount: 1
+  tiltAmount: 1
+  maxTiltSway: 1
+  smoothAmountTilt: 1
+  tiltDirX: 0
+  tiltDirY: 0
+  tiltDirZ: 0
+  swayRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &984466930
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,8 +3594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ammo: {fileID: 291125560}
-  weaponController: {fileID: 1656307734}
-  activeGun: {fileID: 0}
 --- !u!4 &1005086965
 Transform:
   m_ObjectHideFlags: 0
@@ -4465,7 +4445,7 @@ GameObject:
   - component: {fileID: 1600747078}
   - component: {fileID: 1600747077}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4569,6 +4549,8 @@ GameObject:
   - component: {fileID: 1656307736}
   - component: {fileID: 1656307734}
   - component: {fileID: 1656307735}
+  - component: {fileID: 1656307737}
+  - component: {fileID: 1656307738}
   m_Layer: 6
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -4594,11 +4576,11 @@ MonoBehaviour:
   - {fileID: 289890823}
   weaponIndex: 0
   activeGun: {fileID: 0}
-  leftGunGrip: {fileID: 1705680815}
-  rightGunGrip: {fileID: 1140962670}
-  hipR: {fileID: 1569537964}
-  hipL: {fileID: 2012090186}
-  weaponParent: {fileID: 1309536492}
+  leftGunGrip: {fileID: 0}
+  rightGunGrip: {fileID: 0}
+  hipR: {fileID: 0}
+  hipL: {fileID: 0}
+  weaponParent: {fileID: 0}
   animator: {fileID: 1656307735}
 --- !u!95 &1656307735
 Animator:
@@ -4613,7 +4595,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f289d9aeb2cc119478af0f7c48a5ffd5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -4637,6 +4619,48 @@ Transform:
   m_Father: {fileID: 883802245}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656307737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656307733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6bfeb94b456e144abb736210675941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.01
+  maxSway: 8
+  smoothAmount: 2
+  tiltAmount: 5
+  maxTiltSway: 5
+  smoothAmountTilt: 5
+  tiltDirX: 0
+  tiltDirY: 0
+  tiltDirZ: 1
+  swayRot: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &1656307738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656307733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51232b637501c1c42a5c7b1d90f1552d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstPersonController: {fileID: 1451051920}
+  weaponSway: {fileID: 1656307737}
+  speedCurve: 1143.7544
+  smooth: 4
+  travelLimit: {x: 0.005, y: 0.005, z: 0.005}
+  bobLimit: {x: 0.01, y: 0.01, z: 0.02}
+  bobExaggeration: 6
+  multiplier: {x: 1, y: 0, z: 1}
 --- !u!1 &1705680814
 GameObject:
   m_ObjectHideFlags: 0
