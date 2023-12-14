@@ -21,17 +21,18 @@ public class UIManager : MonoBehaviour
         }
     }
     [SerializeField] private TextMeshProUGUI _ammo;
-    private Gun _activeGun;
-    // Start is called before the first frame update
+    [SerializeField] private TextMeshProUGUI _fpsText;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _activeGun = WeaponController.Instance.activeGun;
+        Gun _activeGun = WeaponController.Instance.activeGun;
         _ammo.SetText(_activeGun.bulletsLeft + " / " + _activeGun._currentBullets);
+        FPSCounter.Instance.displayFPS(_fpsText);
     }
+
 }
