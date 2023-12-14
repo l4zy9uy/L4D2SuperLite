@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
     public bool analogMovement;
 
     [Header("Mouse Cursor Settings")]
-    public bool cursorLocked = true;
+    private static bool cursorLocked = true;
     public bool cursorInputForLook = true;
 
     public bool primaryWeapon;
@@ -39,15 +39,19 @@ public class InputManager : MonoBehaviour
         {
             Instance = this;
         }
+        InputManager.SetCursorState(true);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        MoveInput(context.ReadValue<Vector2>());
+        if (!IsGamePaused())
+        {
+            MoveInput(context.ReadValue<Vector2>());
+        }
     }
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (cursorInputForLook)
+        if (!IsGamePaused() && cursorInputForLook)
         {
             LookInput(context.ReadValue<Vector2>());
         }
@@ -151,9 +155,14 @@ public class InputManager : MonoBehaviour
     {
         SetCursorState(cursorLocked);
     }
-    private void SetCursorState(bool newState)
+    public static void SetCursorState(bool newState)
     {
-        Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+        cursorLocked = newState;
+        Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+    public static bool IsCursorLocked()
+    {
+        return cursorLocked;
     }
     private void TernaryWeaponInput(bool v)
     {
@@ -166,5 +175,9 @@ public class InputManager : MonoBehaviour
     private void PrimaryWeaponInput(bool v)
     {
         primaryWeapon = v;
+    }
+    private static bool IsGamePaused()
+    {
+        return Time.timeScale == 0;
     }
 }
