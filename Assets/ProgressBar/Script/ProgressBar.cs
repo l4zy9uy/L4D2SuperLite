@@ -19,7 +19,7 @@ public class ProgressBar : MonoBehaviour
 
     [Header("Sound Alert")]
     public AudioClip sound;
-    public bool repeat = false;
+    public bool repeat = true;
     public float RepeatRate = 1f;
 
     private Image bar, barBackground;
@@ -74,16 +74,34 @@ public class ProgressBar : MonoBehaviour
         UpdateValue(barValue);
     }
 
+    private bool isBeepPlaying = false;
     public void UpdateValue(float val)
     {
+        UnityEngine.Debug.Log("Update value...");
         bar.fillAmount = val / 100;
+        barValue = val;
+        UnityEngine.Debug.Log("health:" + barValue);
 
         if (Alert >= val)
         {
             bar.color = BarAlertColor;
+            if (Alert >= barValue && Time.time > nextPlay && !isBeepPlaying)
+            {
+                UnityEngine.Debug.Log("Playing beep sound.");
+                nextPlay = Time.time + RepeatRate;
+                audiosource.clip = sound;
+                audiosource.Play();
+                isBeepPlaying = true;
+            }
         }
         else
         {
+            if (isBeepPlaying) 
+            {
+                UnityEngine.Debug.Log("Stopping beep sound.");
+                audiosource.Stop();
+                isBeepPlaying = false;
+            }
             bar.color = BarColor;
         }
 
@@ -94,7 +112,7 @@ public class ProgressBar : MonoBehaviour
     {
         if (!Application.isPlaying)
         {           
-            UpdateValue(50);
+            //pdateValue(50);
 
             bar.color = BarColor;
             barBackground.color = BarBackGroundColor;
@@ -103,11 +121,7 @@ public class ProgressBar : MonoBehaviour
         }
         else
         {
-            if (Alert >= barValue && Time.time > nextPlay)
-            {
-                nextPlay = Time.time + RepeatRate;
-                audiosource.PlayOneShot(sound);
-            }
+            
         }
     }
 
