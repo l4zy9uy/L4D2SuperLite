@@ -20,11 +20,13 @@ public class Player : MonoBehaviour
     }
    }
 
-   private void OnTriggerEnter(Collider other)
-   {
-    if (other.CompareTag("ZombieHand"))
+    public void OnTriggerEnter(Collider other)
     {
-        takeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
+        if (other.CompareTag("ZombieHand"))
+        {
+            Debug.Log("attacked!");
+            var hand = other.gameObject.GetComponent<ZombieHand>();
+            takeDamage(hand.damage);
+        }
     }
-   }
 }

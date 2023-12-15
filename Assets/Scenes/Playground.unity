@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.029152164, g: 0.064445704, b: 0.12695073, a: 1}
+  m_IndirectSpecularColor: {r: 0.029152213, g: 0.064445764, b: 0.12695098, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -173,6 +173,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
+--- !u!1 &45356468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: 76fd23ec163004e7db843c3e6190dac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 330884808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &45356469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1812909498023395591, guid: 76fd23ec163004e7db843c3e6190dac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 330884808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &45356470
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45356468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14306064, y: 0.34798923, z: 0.10708188}
+  m_Center: {x: -0.008516011, y: 0.39399463, z: -0.02145907}
+--- !u!114 &45356471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45356468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63de30073900403ebfa4c80bb4c0499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
 --- !u!1 &76254550
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +393,6 @@ GameObject:
   - component: {fileID: 307901150}
   - component: {fileID: 307901149}
   - component: {fileID: 307901148}
-  - component: {fileID: 307901151}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
@@ -386,7 +423,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307901146}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -442,19 +479,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307901146}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &307901151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307901146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddeb18ddc8fe442e68dea7bdf17bb04c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 100
 --- !u!1001 &330884808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -470,12 +494,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 76fd23ec163004e7db843c3e6190dac8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 76fd23ec163004e7db843c3e6190dac8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 76fd23ec163004e7db843c3e6190dac8,
         type: 3}
@@ -527,6 +551,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6370085079684087283, guid: 76fd23ec163004e7db843c3e6190dac8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: -290750445479886849, guid: 76fd23ec163004e7db843c3e6190dac8,
+        type: 3}
+      propertyPath: m_TagString
+      value: ZombieHand
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 76fd23ec163004e7db843c3e6190dac8,
         type: 3}
       propertyPath: m_Name
@@ -536,6 +570,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948933247560734027, guid: 76fd23ec163004e7db843c3e6190dac8,
+        type: 3}
+      propertyPath: m_TagString
+      value: ZombieHand
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 76fd23ec163004e7db843c3e6190dac8,
         type: 3}
@@ -3897,6 +3936,44 @@ Transform:
   m_Father: {fileID: 2114283753834967213}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1070853649 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -290750445479886849, guid: 76fd23ec163004e7db843c3e6190dac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 330884808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1070853650 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2563496969622287784, guid: 76fd23ec163004e7db843c3e6190dac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 330884808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1070853651
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070853649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26, y: 0.37, z: 0.17}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1070853652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070853649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63de30073900403ebfa4c80bb4c0499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
 --- !u!1 &1074771867
 GameObject:
   m_ObjectHideFlags: 0
@@ -4556,6 +4633,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+  leftForeArm: {fileID: 45356469}
+  rightForeArm: {fileID: 1070853650}
+  leftHand: {fileID: 45356468}
+  rightHand: {fileID: 1070853649}
 --- !u!136 &1574046629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4564,7 +4645,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574046625}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
