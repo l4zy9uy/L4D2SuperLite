@@ -38,6 +38,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private ProceduralRecoil recoil;
     [field : SerializeField] public AnimationClip _animationClip { get; private set; }
 
+    public static Gun Instance { get; set; }
+
+    public AmmoBox hoverAmmoBox = null;
+
     private void Awake()
     {
         bulletsLeft = _magazineSize;
@@ -76,14 +80,13 @@ public class Gun : MonoBehaviour
 
         //RayCast
         if (Physics.Raycast(_fpsCam.transform.position, direction, out _rayHit, _range, _whatIsEnemy))
-        {
+        {        
             //Graphics
             Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
         }
         if (_gunType != GunType.Shotgun || _bulletsShot <= 1) bulletsLeft--;
         _bulletsShot--;
         Invoke("ResetShot", _timeBetweenShooting);
-
         Burst();
     }
 
@@ -120,6 +123,38 @@ public class Gun : MonoBehaviour
             _currentBullets = 0;
         }
         _reloading = false;
+    }
+
+    // ham nhat dan
+    internal bool PickUpAmmo(AmmoBox ammo)
+    {
+        switch(ammo.ammoType)
+        {
+            // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
+            case AmmoBox.AmmoType.PistolAmmo:
+                if(WeaponController.Instance.activeGun._magazineSize == 7)
+                {
+                    _currentBullets += ammo.ammoPistolAmount;
+                    return true;
+                }
+                break;
+            case AmmoBox.AmmoType.ShotGunAmmo:
+                if (WeaponController.Instance.activeGun._magazineSize == 10)
+                {
+                    _currentBullets += ammo.ammoShotGunAmount;
+                    return true;
+                }
+                break;
+            case AmmoBox.AmmoType.AutoAmmo:
+                if (WeaponController.Instance.activeGun._magazineSize == 30)
+                {
+                   _currentBullets += ammo.ammoAutoAmount;
+                    return true;
+                }
+                break;
+            default: return false;
+        }
+        return false;
     }
 
 }

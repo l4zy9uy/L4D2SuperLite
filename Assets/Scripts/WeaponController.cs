@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -90,5 +91,10 @@ public class WeaponController : MonoBehaviour
         recorder.TakeSnapshot(0.0f);
         recorder.SaveToClip(activeGun._animationClip);
         UnityEditor.AssetDatabase.SaveAssets();
+    }
+
+    internal void PickUpAmmo(AmmoBox name)
+    {
+        print("Picked up ammo {name}"); 
     }
 }
