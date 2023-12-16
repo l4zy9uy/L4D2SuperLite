@@ -13,6 +13,8 @@ public class Zombie : MonoBehaviour
     [SerializeField] GameObject rightHand;
     private NavMeshAgent NavAgent;
 
+    public bool isDead;
+
     private void Awake()
     {
         attachTag(leftForeArm);
@@ -51,6 +53,7 @@ public class Zombie : MonoBehaviour
          else{
             animator.SetTrigger("DIE2");
          }
+         isDead = true;
       }
       else
       {
