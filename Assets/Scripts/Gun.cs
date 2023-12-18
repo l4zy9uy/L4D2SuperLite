@@ -16,7 +16,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private bool _allowButtonHold;
     [SerializeField] private GunType _gunType;
 
-    [field : SerializeField] public int bulletsLeft { get; private set; }
+    [field: SerializeField] public int bulletsLeft { get; private set; }
     [field: SerializeField] public int _bulletsShot { get; private set; }
     [field: SerializeField] public int _magazineSize { get; private set; }
     [field: SerializeField] public int _currentBullets { get; private set; }
@@ -36,7 +36,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private GameObject _bulletHoleGraphic;
     [SerializeField] private ParticleSystem _muzzleFlash;
     [SerializeField] private ProceduralRecoil recoil;
-    [field : SerializeField] public AnimationClip _animationClip { get; private set; }
+    [field: SerializeField] public AnimationClip _animationClip { get; private set; }
 
     private void Awake()
     {
@@ -46,6 +46,7 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+        //Spray Gun
         if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0);
 
         else _shooting = InputManager.Instance.shoot;
@@ -109,7 +110,7 @@ public class Gun : MonoBehaviour
     private void ReloadFinished()
     {
         int numReloadBullets = _magazineSize - bulletsLeft;
-        if( numReloadBullets <= _currentBullets )
+        if (numReloadBullets <= _currentBullets)
         {
             _currentBullets -= numReloadBullets;
             bulletsLeft = _magazineSize;
@@ -122,4 +123,11 @@ public class Gun : MonoBehaviour
         _reloading = false;
     }
 
+    private void OnDrawGizmos()
+    {
+        Vector3 direction = _fpsCam.transform.forward;
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(_fpsCam.transform.position, direction);
+        Gizmos.DrawRay(_fpsCam.transform.position, direction);
+    }
 }
