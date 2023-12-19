@@ -74,6 +74,9 @@ public class Gun : MonoBehaviour
         recoil.recoil();
         _readyToShoot = false;
 
+        //sound
+        SoundManager.Instance.shootingSoundAk47.Play();
+
         //Spread
         float x = Random.Range(-_spread, _spread);
         float y = Random.Range(-_spread, _spread);
