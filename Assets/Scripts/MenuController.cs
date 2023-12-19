@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,6 +19,61 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject confirmationPrompt;
     [SerializeField] private float defaultVolume = 1.0f;
 
+    [Header("Gameplay Settings")]
+    [SerializeField] private TextMeshProUGUI mouseSensTextValue;
+    [SerializeField] private Slider mouseSensSlider;
+    [SerializeField] private float defaultSens = 4;
+    public float mainMouseSens = 4;
+
+    [Header("Graphics Settings")]
+    [SerializeField] private Slider brightnessSlider;
+    [SerializeField] private TextMeshProUGUI brightnessTextValue;
+    [SerializeField] private float defaultBrightness = 1;
+
+    [SerializeField] private TMP_Dropdown qualityDropdown;
+    [SerializeField] private QualitySettings[] qualitySettings;
+    [SerializeField] private Toggle fullScreenToggle;
+
+
+    private int _qualityLevel;
+    private bool _isFullScreen;
+    private float _brightnessLevel;
+
+    [Header("Resolution Dropdowns")]
+    public TMP_Dropdown resolutionDropdown;
+    public Resolution[] resolutions;
+
+    private void Start()
+    {
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        int currentResIndex = 0;
+
+        for(int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            Debug.Log(option);
+            options.Add(option);
+
+            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            {
+                currentResIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResIndex;
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
     public void NewGameDialogYes()
     {
         SceneManager.LoadScene(_newGameLevel);
@@ -60,6 +116,67 @@ public class MenuController : MonoBehaviour
             volumeTextValue.text = defaultVolume.ToString("0.0");
             VolumeApply();
         }
+        if(MenuType == "Gameplay")
+        {
+            mouseSensTextValue.text = defaultSens.ToString("0.00");
+            mouseSensSlider.value = defaultSens;
+            mainMouseSens = defaultSens;
+            GamePlayApply();
+        }
+        if(MenuType == "Graphics")
+        {
+            brightnessSlider.value = defaultBrightness;
+            brightnessTextValue.text = defaultBrightness.ToString("0.0");
+            qualityDropdown.value = 1;
+            QualitySettings.SetQualityLevel(1);
+
+            fullScreenToggle.isOn = false;
+            Screen.fullScreen = false;
+
+            Resolution currentRes = Screen.currentResolution;
+            Screen.SetResolution(currentRes.width, currentRes.height, Screen.fullScreen);
+            resolutionDropdown.value = resolutions.Length;
+            GraphicsApply();
+        }
+    }
+
+    public void SetMouseSens(float sens)
+    {
+        mainMouseSens = sens;
+        mouseSensTextValue.text = mainMouseSens.ToString("0.00");
+    }
+
+    public void GamePlayApply()
+    {
+        PlayerPrefs.SetFloat("masterSens", mainMouseSens);
+        StartCoroutine (ConfirmBox());
+    }
+
+    public void SetBrightness(float brightness)
+    {
+        _brightnessLevel = brightness;
+        brightnessTextValue.text = brightness.ToString("0.0");
+    }
+
+    public void SetFullScreen(bool isFullScreen)
+    {
+        _isFullScreen = isFullScreen;
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        _qualityLevel = qualityIndex;
+    }
+
+    public void GraphicsApply()
+    {
+        PlayerPrefs.SetFloat("masterBrightness", _brightnessLevel);
+        PlayerPrefs.SetInt("masterQuality", _qualityLevel);
+        QualitySettings.SetQualityLevel(_qualityLevel);
+        PlayerPrefs.SetInt("masterFullScreen", (_isFullScreen ? 1 : 0));
+        Screen.fullScreen = _isFullScreen;
+
+        StartCoroutine (ConfirmBox());
     }
     public IEnumerator ConfirmBox()
     {
