@@ -92,9 +92,4 @@ public class WeaponController : MonoBehaviour
         recorder.SaveToClip(activeGun._animationClip);
         UnityEditor.AssetDatabase.SaveAssets();
     }
-
-    internal void PickUpAmmo(AmmoBox name)
-    {
-        print("Picked up ammo {name}"); 
-    }
 }

@@ -128,7 +128,7 @@ public class Gun : MonoBehaviour
     // ham nhat dan
     internal bool PickUpAmmo(AmmoBox ammo)
     {
-        switch(ammo.ammoType)
+        /*switch(ammo.ammoType)
         {
             // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
             case AmmoBox.AmmoType.PistolAmmo:
@@ -155,6 +155,10 @@ public class Gun : MonoBehaviour
             default: return false;
         }
         return false;
+    }*/
+        _currentBullets += ammo.ammoAutoAmount;
+       
+    
+        return true;
     }
-
 }
