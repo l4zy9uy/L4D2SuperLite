@@ -84,6 +84,15 @@ using UnityEngine.InputSystem;
 
 		private void Awake()
 		{
+			if (healthBar != null)
+		{
+			// Đặt giá trị thanh máu thành 100
+			healthBar.BarValue = 100f;
+		}
+		else
+		{
+			Debug.LogError("HealthBar is not assigned to the FirstPersonController. Please assign it in the Inspector.");
+		}
 		}
 
 		private void Start()
