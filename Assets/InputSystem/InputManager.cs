@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -151,7 +152,7 @@ public class InputManager : MonoBehaviour
     {
         SetCursorState(cursorLocked);
     }
-    private void SetCursorState(bool newState)
+    public void SetCursorState(bool newState)
     {
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
     }
