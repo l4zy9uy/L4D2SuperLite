@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour
     [field: SerializeField] public int bulletsLeft { get; private set; }
     [field: SerializeField] public int _bulletsShot { get; private set; }
     [field: SerializeField] public int _magazineSize { get; private set; }
-    [field: SerializeField] public int _currentBullets { get; private set; }
+    [field: SerializeField] public int _currentBullets { get; set; }
 
     //bools 
     private bool _readyToShoot;
