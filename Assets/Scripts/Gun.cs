@@ -10,67 +10,53 @@ enum GunType
 public class Gun : MonoBehaviour
 {
     //Gun stats
-    [SerializeField]
-    private int _damage;
-    [SerializeField]
-    private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
-    [SerializeField]
-    private int _bulletsPerTap;
-    [SerializeField]
-    private bool _allowButtonHold;
-    [SerializeField]
-    private GunType _gunType;
+    [SerializeField] private int _damage;
+    [SerializeField] private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
+    [SerializeField] private int _bulletsPerTap;
+    [SerializeField] private bool _allowButtonHold;
+    [SerializeField] private GunType _gunType;
 
-    [SerializeField]
-    public int _bulletsLeft;
-    public int _bulletsShot;
-    public int _magazineSize;
-    public int _currentBullets;
+    [field: SerializeField] public int bulletsLeft { get; private set; }
+    [field: SerializeField] public int _bulletsShot { get; private set; }
+    [field: SerializeField] public int _magazineSize { get; private set; }
+    [field: SerializeField] public int _currentBullets { get; private set; }
 
     //bools 
-    private bool _readyToShoot, _reloading;
+    private bool _readyToShoot;
+    private bool _reloading;
     private bool _shooting;
 
     //Reference
-    [SerializeField]
-    private Camera _fpsCam;
-    [SerializeField]
-    private Transform _attackPoint;
-    [SerializeField]
-    private RaycastHit _rayHit;
-    [SerializeField]
-    private LayerMask _whatIsEnemy;
+    [SerializeField] private Camera _fpsCam;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private RaycastHit _rayHit;
+    [SerializeField] private LayerMask _whatIsEnemy;
 
     //Graphics
-    [SerializeField]
-    private GameObject _bulletHoleGraphic;
-    [SerializeField]
-    private ParticleSystem _muzzleFlash;
-
-    [SerializeField]
-    private ProceduralRecoil recoil;
-
-    [SerializeField]
-    public AnimationClip _animationClip;
+    [SerializeField] private GameObject _bulletHoleGraphic;
+    [SerializeField] private ParticleSystem _muzzleFlash;
+    [SerializeField] private ProceduralRecoil recoil;
+    [field: SerializeField] public AnimationClip _animationClip { get; private set; }
 
     private void Awake()
     {
-        _bulletsLeft = _magazineSize;
+        bulletsLeft = _magazineSize;
         _readyToShoot = true;
     }
 
     private void Update()
     {
+        //Spray Gun
         if (_allowButtonHold) _shooting = Input.GetKey(KeyCode.Mouse0);
 
         else _shooting = InputManager.Instance.shoot;
 
-        if (InputManager.Instance.reload && _bulletsLeft < _magazineSize && !_reloading)
+        if (InputManager.Instance.reload && bulletsLeft < _magazineSize && !_reloading)
         {
             Reload();
         }
         //Shoot
-        if (_readyToShoot && (_shooting == true) && !_reloading && _bulletsLeft > 0) //_shooting == GunState.Spray ||
+        if (_readyToShoot && (_shooting == true) && !_reloading && bulletsLeft > 0) //_shooting == GunState.Spray ||
         {
             _bulletsShot = _bulletsPerTap;
             Shoot();
@@ -95,7 +81,7 @@ public class Gun : MonoBehaviour
             //Graphics
             Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
         }
-        if (_gunType != GunType.Shotgun || _bulletsShot <= 1) _bulletsLeft--;
+        if (_gunType != GunType.Shotgun || _bulletsShot <= 1) bulletsLeft--;
         _bulletsShot--;
         Invoke("ResetShot", _timeBetweenShooting);
 
@@ -105,7 +91,7 @@ public class Gun : MonoBehaviour
     //this invoking supports multi bullets per-shot
     private void Burst()
     {
-        if (_bulletsShot > 0 && _bulletsLeft > 0)
+        if (_bulletsShot > 0 && bulletsLeft > 0)
         {
             Invoke("Shoot", _timeBetweenShots);
         }
@@ -123,18 +109,25 @@ public class Gun : MonoBehaviour
     }
     private void ReloadFinished()
     {
-        int numReloadBullets = _magazineSize - _bulletsLeft;
-        if( numReloadBullets <= _currentBullets )
+        int numReloadBullets = _magazineSize - bulletsLeft;
+        if (numReloadBullets <= _currentBullets)
         {
             _currentBullets -= numReloadBullets;
-            _bulletsLeft = _magazineSize;
+            bulletsLeft = _magazineSize;
         }
         else
         {
-            _bulletsLeft = _bulletsLeft + _currentBullets;
+            bulletsLeft = bulletsLeft + _currentBullets;
             _currentBullets = 0;
         }
         _reloading = false;
     }
 
+    private void OnDrawGizmos()
+    {
+        Vector3 direction = _fpsCam.transform.forward;
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(_fpsCam.transform.position, direction);
+        Gizmos.DrawRay(_fpsCam.transform.position, direction);
+    }
 }
