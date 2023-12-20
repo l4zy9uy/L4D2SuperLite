@@ -1,16 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 [ExecuteInEditMode]
-
 public class ProgressBar : MonoBehaviour
 {
-
     [Header("Bar Setting")]
-    public Color BarColor;   
+    public Color BarColor;
     public Color BarBackGroundColor;
     public Sprite BarBackGroundSprite;
     [Range(1f, 100f)]
@@ -22,72 +18,54 @@ public class ProgressBar : MonoBehaviour
     public bool repeat = true;
     public float RepeatRate = 1f;
 
-    private Image bar, barBackground;
-    private float nextPlay;
+    private Image bar;
+    private Image barBackground;
     private AudioSource audiosource;
-    private Text txtTitle;
     private float barValue;
+
+    private float nextPlay;
+    private bool isBeepPlaying;
+
     public float BarValue
     {
         get { return barValue; }
-
         set
         {
-            value = Mathf.Clamp(value, 0, 100);
-            barValue = value;
+            barValue = Mathf.Clamp(value, 0, 100);
             UpdateValue(barValue);
-
         }
     }
 
-        
-
     private void Awake()
-{
-    // Kiểm tra xem thành phần có tồn tại không
-    Transform barTransform = transform.Find("Bar");
-    if (barTransform != null)
     {
-        bar = barTransform.GetComponent<Image>();
+        Transform barTransform = transform.Find("Bar");
+        bar = barTransform != null ? barTransform.GetComponent<Image>() : null;
+
+        barBackground = GetComponent<Image>();
+        Transform backgroundTransform = transform.Find("BarBackground");
+        barBackground = backgroundTransform != null ? backgroundTransform.GetComponent<Image>() : null;
+
+        audiosource = GetComponent<AudioSource>();
     }
-
-    // Kiểm tra xem thành phần có tồn tại không
-    barBackground = GetComponent<Image>();
-
-    // Kiểm tra xem thành phần có tồn tại không
-    Transform backgroundTransform = transform.Find("BarBackground");
-    if (backgroundTransform != null)
-    {
-        barBackground = backgroundTransform.GetComponent<Image>();
-    }
-
-    // Kiểm tra xem thành phần có tồn tại không
-    audiosource = GetComponent<AudioSource>();
-}
 
     private void Start()
     {
         bar.color = BarColor;
-        barBackground.color = BarBackGroundColor; 
+        barBackground.color = BarBackGroundColor;
         barBackground.sprite = BarBackGroundSprite;
-
         UpdateValue(barValue);
     }
 
-    private bool isBeepPlaying = false;
     public void UpdateValue(float val)
     {
-        UnityEngine.Debug.Log("Update value...");
         bar.fillAmount = val / 100;
         barValue = val;
-        UnityEngine.Debug.Log("health:" + barValue);
 
         if (Alert >= val)
         {
             bar.color = BarAlertColor;
             if (Alert >= barValue && Time.time > nextPlay && !isBeepPlaying)
             {
-                UnityEngine.Debug.Log("Playing beep sound.");
                 nextPlay = Time.time + RepeatRate;
                 audiosource.clip = sound;
                 audiosource.Play();
@@ -96,33 +74,24 @@ public class ProgressBar : MonoBehaviour
         }
         else
         {
-            if (isBeepPlaying) 
+            if (isBeepPlaying)
             {
-                UnityEngine.Debug.Log("Stopping beep sound.");
                 audiosource.Stop();
                 isBeepPlaying = false;
             }
             bar.color = BarColor;
         }
-
     }
 
-
+#if UNITY_EDITOR
     private void Update()
     {
         if (!Application.isPlaying)
-        {           
-            //pdateValue(50);
-
+        {
             bar.color = BarColor;
             barBackground.color = BarBackGroundColor;
-
-            barBackground.sprite = BarBackGroundSprite;           
-        }
-        else
-        {
-            
+            barBackground.sprite = BarBackGroundSprite;
         }
     }
-
+#endif
 }
