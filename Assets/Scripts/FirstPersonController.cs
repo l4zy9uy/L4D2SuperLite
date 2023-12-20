@@ -54,10 +54,13 @@ using UnityEngine.InputSystem;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
 
-		// timeout deltatime
-		private float _jumpTimeoutDelta;
-		private float _fallTimeoutDelta;
-	
+	// timeout deltatime
+	private float _jumpTimeoutDelta;
+	private float _fallTimeoutDelta;
+
+	// health bar
+	public ProgressBar healthBar;
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		private PlayerInput _playerInput;
 #endif
@@ -247,7 +250,65 @@ using UnityEngine.InputSystem;
 			if (Grounded) Gizmos.color = transparentGreen;
 			else Gizmos.color = transparentRed;
 
-			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+		Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+	}
+
+	//goi khi mat mau
+	public void TakeDamage(float damage)
+	{
+		if (healthBar.BarValue - damage <= 0)
+		{
+			//xu ly player die
+		}
+		else
+		{
+			healthBar.UpdateValue(healthBar.BarValue - damage); // Giả sử damage là một số dương
 		}
 	}
+
+	// Gọi khi hồi phục máu
+	public void Heal(float healAmount)
+	{
+		if (healthBar.BarValue + healAmount > 100)
+		{
+			healthBar.UpdateValue(100);
+		}
+		else
+		{
+			healthBar.UpdateValue(healthBar.BarValue + healAmount);// Giả sử healAmount là một số dương
+		}
+	}
+
+
+	//for testing decrease health bar
+	private IEnumerator RepeatDecreaseHealthOverTime()
+	{
+		// Run the coroutine indefinitely
+		while (true)
+		{
+			// Run the coroutine to decrease health twice
+			yield return StartCoroutine(DecreaseHealthOverTime());
+
+			// Wait for a cooldown or perform other actions if needed
+			yield return new WaitForSeconds(10f); // Adjust the cooldown time as needed
+		}
+	}
+
+	private IEnumerator DecreaseHealthOverTime()
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			yield return new WaitForSeconds(5f);
+
+			TakeDamage(80f);
+
+			if (healthBar.BarValue <= 0)
+			{
+				Debug.Log("Health depleted!");
+				yield break; // Exit the coroutine if health is depleted
+			}
+		}
+	}
+
+}
