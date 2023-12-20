@@ -5,20 +5,41 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-   [SerializeField] private int HP = 100;
-   private Animator animator;
+    [SerializeField] private int HP = 100;
+    private Animator animator;
+    [SerializeField] Transform leftForeArm;
+    [SerializeField] Transform rightForeArm;
+    [SerializeField] GameObject leftHand;
+    [SerializeField] GameObject rightHand;
+    private NavMeshAgent NavAgent;
 
-   private NavMeshAgent NavAgent;
+    public bool isDead;
 
+    private void Awake()
+    {
+        attachTag(leftForeArm);
+        attachTag(rightForeArm);
+    }
 
-
-   private void Start()
+    private void Start()
    {
       animator = GetComponent<Animator>();
       NavAgent = GetComponent<NavMeshAgent>();
-   }
+        
+    }
 
-   public void takeDamage(int damage)
+    private void attachTag(Transform transform)
+    {
+        if(transform != null)
+        {
+            foreach (Transform t in transform)
+            {
+                t.gameObject.tag = "ZombieHand";
+                attachTag(t);
+            }
+        }
+    }
+    public void takeDamage(int damage)
    {
       HP -= damage;
       if (HP <= 0)
@@ -32,11 +53,12 @@ public class Zombie : MonoBehaviour
          else{
             animator.SetTrigger("DIE2");
          }
+         isDead = true;
       }
       else
       {
          animator.SetTrigger("DAMAGE");
-      }
+        }
    }
    
    // private void Update()

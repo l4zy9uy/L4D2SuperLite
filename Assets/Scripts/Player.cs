@@ -1,30 +1,112 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
-   public int HP = 100;
+    public int HP = 100;
+    public GameObject BloodyScreen;
+    public TextMeshProUGUI playerHealthUI;
+    public GameObject gameOverUI;
 
-   public void takeDamage(int damageAmount)
-   {
-    HP -= damageAmount;
+    public bool isDead;
 
-    if(HP<= 0)
+    private void Start()
     {
-        print("Player is dead");
+        playerHealthUI.text = $"Health: {HP}";
     }
-    else
-    {
-        print("Player hit");
-    }
-   }
 
-   private void OnTriggerEnter(Collider other)
-   {
-    if (other.CompareTag("ZombieHand"))
+    public void takeDamage(int damageAmount)
     {
-        takeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
+        HP -= damageAmount;
+
+        if (HP <= 0)
+        {
+            print("Player is dead");
+            PlayerDead();
+            isDead = true;
+        }
+        else
+        {
+            print("Player hit");
+            StartCoroutine(bloodyScreenEffect());
+            playerHealthUI.text = $"Health: {HP}";
+        }
     }
-   }
+
+    private void PlayerDead()
+    {
+        //Khoá hiệu ứng di chuyển chuột và bàn phím
+
+        //GetComponent<MouseMovement>().enabled = false;
+        //GetComponent<PlayerMovement>().enabled = false;
+
+        // die animation
+        GetComponentInChildren<Animator>().enabled = true;
+        playerHealthUI.gameObject.SetActive(false);
+
+        GetComponent<ScreenFader>().StartFade();
+        StartCoroutine(ShowGameOverUI());
+    }
+
+    private IEnumerator ShowGameOverUI()
+    {
+        yield return new WaitForSeconds(1f);
+        gameOverUI.gameObject.SetActive(true);
+    }
+
+    private IEnumerator bloodyScreenEffect()
+    {
+        if (BloodyScreen.activeInHierarchy == false)
+        {
+            BloodyScreen.SetActive(true);
+        }
+        var image = BloodyScreen.GetComponentInChildren<RawImage>();
+
+        if (image != null)  // Kiểm tra xem image có tồn tại không
+        {
+            Color startColor = image.color;
+            startColor.a = 1f;
+            image.color = startColor;
+
+            float duration = 3f;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                float alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
+
+                Color newColor = image.color;
+                newColor.a = alpha;
+
+                image.color = newColor;  // Gán giá trị mới cho image.color
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            Debug.LogError("Image component not found in bloodyScreen.");
+        }
+
+        if (BloodyScreen.activeInHierarchy == true)
+        {
+            BloodyScreen.SetActive(false);
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ZombieHand"))
+        {
+            if (isDead == false)
+            {
+                Debug.Log("attacked!");
+                var hand = other.gameObject.GetComponent<ZombieHand>();
+                takeDamage(hand.damage);
+            }
+        }
+    }
 }
