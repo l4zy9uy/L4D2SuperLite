@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 
-enum GunType
+public enum GunType
 {
     AutomaticGun, Shotgun, PistolGun
 }
@@ -14,7 +14,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
     [SerializeField] private int _bulletsPerTap;
     [SerializeField] private bool _allowButtonHold;
-    [SerializeField] private GunType _gunType;
+    [field:SerializeField] public GunType GunType {get; private set;}
 
     [field: SerializeField] public int bulletsLeft { get; private set; }
     [field: SerializeField] public int _bulletsShot { get; private set; }
@@ -81,7 +81,7 @@ public class Gun : MonoBehaviour
             //Graphics
             Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
         }
-        if (_gunType != GunType.Shotgun || _bulletsShot <= 1) bulletsLeft--;
+        if (GunType != GunType.Shotgun || _bulletsShot <= 1) bulletsLeft--;
         _bulletsShot--;
         Invoke("ResetShot", _timeBetweenShooting);
 
