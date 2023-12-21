@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-    [SerializeField] private int HP = 100;
+    [SerializeField] private float HP = 100;
     private Animator animator;
     [SerializeField] Transform leftForeArm;
     [SerializeField] Transform rightForeArm;
@@ -39,7 +39,7 @@ public class Zombie : MonoBehaviour
             }
         }
     }
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
    {
       HP -= damage;
       if (HP <= 0)
