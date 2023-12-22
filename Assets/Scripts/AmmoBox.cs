@@ -12,6 +12,7 @@ public class AmmoBox : MonoBehaviour
 
     public enum AmmoType
     {
+        All,
         AutoAmmo,
         ShotGunAmmo,
         PistolAmmo

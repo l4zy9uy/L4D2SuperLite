@@ -38,15 +38,36 @@ public class InteractionManager : MonoBehaviour
                     Gun activeGun = WeaponController.Instance.activeGun.GetComponentInChildren<Gun>();
                     if(activeGun)
                     {
-                        // neu nhat dan thanh cong thi huy hop dan
-                        if(activeGun.PickUpAmmo(hoverAmmoBox) == true)
+                        switch (hoverAmmoBox.ammoType)
                         {
-                            Destroy(objectHitRaycast.gameObject);
-
+                            // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
+                            case AmmoBox.AmmoType.PistolAmmo:
+                                if (WeaponController.Instance.activeGun._magazineSize == 7)
+                                {
+                                    activeGun._currentBullets += hoverAmmoBox.ammoPistolAmount;
+                                }
+                                break;
+                            case AmmoBox.AmmoType.ShotGunAmmo:
+                                if (WeaponController.Instance.activeGun._magazineSize == 10)
+                                {
+                                    activeGun._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                }
+                                break;
+                            case AmmoBox.AmmoType.AutoAmmo:
+                                if (WeaponController.Instance.activeGun._magazineSize == 30)
+                                {
+                                    activeGun._currentBullets += hoverAmmoBox.ammoAutoAmount;
+                                }
+                                break;
+                            case AmmoBox.AmmoType.All:
+                                WeaponController.Instance.weapons[1]._currentBullets += 30;
+                                WeaponController.Instance.weapons[0]._currentBullets += 60;
+                                WeaponController.Instance.weapons[2]._currentBullets += 40;
+                                break;
                         }
                     }
-                   
                 }
+                   
             }
             else
             {
@@ -55,6 +76,6 @@ public class InteractionManager : MonoBehaviour
                     hoverAmmoBox.GetComponent<Outline>().enabled = false;
                 }
             }
-        }    
-    }
+        }         
+    }    
 }
