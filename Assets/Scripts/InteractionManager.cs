@@ -29,38 +29,44 @@ public class InteractionManager : MonoBehaviour
         {
             // lay object bi raycast chieu trung
             GameObject objectHitRaycast = hit.transform.gameObject;
+
+            float distanceToPlayer = Vector3.Distance(objectHitRaycast.transform.position, Camera.main.transform.position);
+
             if (objectHitRaycast.GetComponent<AmmoBox>())
             {
-                hoverAmmoBox = objectHitRaycast.gameObject.GetComponent<AmmoBox>();
-                hoverAmmoBox.GetComponent<Outline>().enabled = true;
-                if (Input.GetKeyDown(KeyCode.F))
+                if (distanceToPlayer <= 5f)
                 {
-                    Gun activeGun = WeaponController.Instance.activeGun.GetComponentInChildren<Gun>();
-                    if(activeGun)
+                    hoverAmmoBox = objectHitRaycast.gameObject.GetComponent<AmmoBox>();
+                    hoverAmmoBox.GetComponent<Outline>().enabled = true;
+                    if (Input.GetKeyDown(KeyCode.F))
                     {
-                        switch (hoverAmmoBox.ammoType)
+                        Gun activeGun = WeaponController.Instance.activeGun.GetComponentInChildren<Gun>();
+                        if (activeGun)
                         {
-                            // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
-                            case AmmoBox.AmmoType.PistolAmmo:
+                            switch (hoverAmmoBox.ammoType)
+                            {
+                                // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
+                                case AmmoBox.AmmoType.PistolAmmo:
                                     WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
                                     WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoPistolAmount;
-                                Destroy(objectHitRaycast.gameObject);
-                                
-                                break;
-                            case AmmoBox.AmmoType.ShotGunAmmo:                             
+                                    Destroy(objectHitRaycast.gameObject);
+
+                                    break;
+                                case AmmoBox.AmmoType.ShotGunAmmo:
                                     WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
-                                    Destroy(objectHitRaycast.gameObject);                             
-                                break;
-                            case AmmoBox.AmmoType.AutoAmmo:
+                                    Destroy(objectHitRaycast.gameObject);
+                                    break;
+                                case AmmoBox.AmmoType.AutoAmmo:
                                     WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
                                     Destroy(objectHitRaycast.gameObject);
-                                break;
-                            case AmmoBox.AmmoType.All:
-                                WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
-                                WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
-                                WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
-                                Destroy(objectHitRaycast.gameObject);
-                                break;
+                                    break;
+                                case AmmoBox.AmmoType.All:
+                                    WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
+                                    WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                    WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                    Destroy(objectHitRaycast.gameObject);
+                                    break;
+                            }
                         }
                     }
                 }
@@ -71,7 +77,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     hoverAmmoBox.GetComponent<Outline>().enabled = false;
                 }
-            }
+            }        
         }
             
     }    
