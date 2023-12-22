@@ -42,8 +42,9 @@ public class InteractionManager : MonoBehaviour
                         {
                             // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
                             case AmmoBox.AmmoType.PistolAmmo:
+                                    WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
                                     WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoPistolAmount;
-                                    Destroy(objectHitRaycast.gameObject);
+                                Destroy(objectHitRaycast.gameObject);
                                 
                                 break;
                             case AmmoBox.AmmoType.ShotGunAmmo:                             
@@ -54,10 +55,15 @@ public class InteractionManager : MonoBehaviour
                                     WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
                                     Destroy(objectHitRaycast.gameObject);
                                 break;
+                            case AmmoBox.AmmoType.All:
+                                WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
+                                WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                Destroy(objectHitRaycast.gameObject);
+                                break;
                         }
                     }
                 }
-
             }
             else
             {
