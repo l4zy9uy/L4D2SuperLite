@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/LowPolySoldiers_demo.meta
 guid: 9b9749139bc541fb1b3b5a95e686bb6f
+========
+guid: b76f31cec7b9c6124887b1fcbf75fe2f
+>>>>>>>> DH_Code2:Assets/Prefabs/Scene Prefabs.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
