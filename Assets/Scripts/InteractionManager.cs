@@ -42,25 +42,17 @@ public class InteractionManager : MonoBehaviour
                         {
                             // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
                             case AmmoBox.AmmoType.PistolAmmo:
-                                if (WeaponController.Instance.activeGun._magazineSize == 7)
-                                {
-                                    activeGun._currentBullets += hoverAmmoBox.ammoPistolAmount;
+                                    WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoPistolAmount;
                                     Destroy(objectHitRaycast.gameObject);
-                                }
+                                
                                 break;
-                            case AmmoBox.AmmoType.ShotGunAmmo:
-                                if (WeaponController.Instance.activeGun._magazineSize == 10)
-                                {
-                                    activeGun._currentBullets += hoverAmmoBox.ammoShotGunAmount;
-                                    Destroy(objectHitRaycast.gameObject);
-                                }
+                            case AmmoBox.AmmoType.ShotGunAmmo:                             
+                                    WeaponController.Instance.weapons[1]._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                    Destroy(objectHitRaycast.gameObject);                             
                                 break;
                             case AmmoBox.AmmoType.AutoAmmo:
-                                if (WeaponController.Instance.activeGun._magazineSize == 30)
-                                {
-                                    activeGun._currentBullets += hoverAmmoBox.ammoAutoAmount;
+                                    WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
                                     Destroy(objectHitRaycast.gameObject);
-                                }
                                 break;
                         }
                     }
