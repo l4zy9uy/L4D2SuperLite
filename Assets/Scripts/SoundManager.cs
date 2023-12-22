@@ -10,6 +10,9 @@ public class SoundManager : MonoBehaviour
     }
 
     public AudioSource shootingSoundAk47;
+    public AudioSource movingPlayer;
+
+    public List<AudioClip> audioSimpleList;
 
     private void Awake() {
         if(Instance != null && Instance != this) {
@@ -20,15 +23,17 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void PlayFootStep(FirstPersonController controller,bool isPlaying = false)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(isPlaying)
+        {
+            controller.footStep.clip = audioSimpleList[0];
+            controller.footStep.Play();
+        }
+        else
+        {
+            if(controller.footStep != null)
+                controller.footStep.Stop();
+        }
     }
 }

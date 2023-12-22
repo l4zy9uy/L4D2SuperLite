@@ -89,11 +89,11 @@ using UnityEngine.InputSystem;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 			_playerInput = GetComponent<PlayerInput>();
 #else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+		Debug.LogError("Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
-			// reset our timeouts on start
-			_jumpTimeoutDelta = JumpTimeout;
+		// reset our timeouts on start
+		_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
 		}
 
@@ -138,8 +138,13 @@ using UnityEngine.InputSystem;
 			}
 		}
 
+		public AudioSource footStep;
 		private void Move()
 		{
+
+			
+			
+
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = InputManager.Instance.sprint ? SprintSpeed : MoveSpeed;
 
@@ -182,7 +187,17 @@ using UnityEngine.InputSystem;
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+		//sound
+		if(_speed == 0)
+		{
+			SoundManager.Instance.PlayFootStep(this, false);
 		}
+		if (footStep.isPlaying == true)
+			return;
+		Debug.Log(footStep.isPlaying);
+			Debug.Log("okokokokoko");
+		SoundManager.Instance.PlayFootStep(this, true);
+    }
 
 		private void JumpAndGravity()
 		{
