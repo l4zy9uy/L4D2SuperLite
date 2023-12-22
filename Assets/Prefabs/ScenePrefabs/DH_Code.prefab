@@ -132,7 +132,7 @@ MonoBehaviour:
   ammoTypeUI: {fileID: 0}
   activeWeaponUI: {fileID: 0}
   unactiveWeaponUI: {fileID: 0}
-  lethalUI: {fileID: 3328242322588812284}
+  lethalUI: {fileID: 0}
   lethalAmountUI: {fileID: 0}
   tacticalUI: {fileID: 0}
   tacticalAmountUI: {fileID: 0}
@@ -816,18 +816,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31213a19de488d7419844138edfcfdea, type: 3}
---- !u!114 &3328242322588812284 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8466686138832955174, guid: 31213a19de488d7419844138edfcfdea,
-    type: 3}
-  m_PrefabInstance: {fileID: 6579755677152928986}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &3328242323789489219 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8466686137969918105, guid: 31213a19de488d7419844138edfcfdea,

@@ -1862,6 +1862,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1753255094, guid: cc3271c816b16844f9cbb3f4c26e3a32, type: 3}
+      propertyPath: <GunType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753255094, guid: cc3271c816b16844f9cbb3f4c26e3a32, type: 3}
       propertyPath: <bulletsLeft>k__BackingField
       value: 10
       objectReference: {fileID: 0}
@@ -1972,7 +1976,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1753255093, guid: cc3271c816b16844f9cbb3f4c26e3a32, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cc3271c816b16844f9cbb3f4c26e3a32, type: 3}
 --- !u!114 &7485147490122453555 stripped
 MonoBehaviour:
@@ -3647,25 +3652,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7485147489006254479}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7485147489006254529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7719728494977139934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6def9ff1d7e7a4545ad2cf06dc9e1115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recoilX: -2
-  recoilY: 2
-  recoilZ: 1
-  kickbackz: 0.2
-  snappiness: 5
-  returnAmount: 8
-  cam: {fileID: 1952430843193701920}
 --- !u!114 &7485147489006254528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3749,6 +3735,25 @@ MonoBehaviour:
   - {fileID: 66582319795066464}
   - {fileID: 2711767080795171321}
   - {fileID: 1742680338043352322}
+--- !u!114 &7485147489006254529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7719728494977139934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6def9ff1d7e7a4545ad2cf06dc9e1115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilX: -2
+  recoilY: 2
+  recoilZ: 1
+  kickbackz: 0.2
+  snappiness: 5
+  returnAmount: 8
+  cam: {fileID: 1952430843193701920}
 --- !u!114 &7485147489006254535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3822,6 +3827,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7485147489006254531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169542633833689393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 7485147488214507371}
+    m_Active: 1
+  - m_Rig: {fileID: 7485147489538156291}
+    m_Active: 1
+  m_Effectors: []
 --- !u!114 &7485147489006254540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3843,24 +3866,6 @@ MonoBehaviour:
   rightArm: {fileID: 7142431918364179990}
   rightForearm: {fileID: 5349215671472106743}
   rightHand: {fileID: 3218334677398615700}
---- !u!114 &7485147489006254531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8169542633833689393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RigLayers:
-  - m_Rig: {fileID: 7485147488214507371}
-    m_Active: 1
-  - m_Rig: {fileID: 7485147489538156291}
-    m_Active: 1
-  m_Effectors: []
 --- !u!4 &8315913148893266013 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7743769097592669742, guid: 07fd8518ba79b4f4a9f11cfa650a5ff1,
