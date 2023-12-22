@@ -36,7 +36,6 @@ public class ProgressBar : MonoBehaviour
             value = Mathf.Clamp(value, 0, 100);
             barValue = value;
             UpdateValue(barValue);
-
         }
     }
 
@@ -70,7 +69,6 @@ public class ProgressBar : MonoBehaviour
         bar.color = BarColor;
         barBackground.color = BarBackGroundColor; 
         barBackground.sprite = BarBackGroundSprite;
-
         UpdateValue(barValue);
     }
 
