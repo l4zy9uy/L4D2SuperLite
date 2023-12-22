@@ -80,6 +80,7 @@ public class Gun : MonoBehaviour
         {
             //Graphics
             Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
+            
             //(myhh) to do: giảm dmg cho gun theo range và type
             Zombie zombie = _rayHit.collider.GetComponent<Zombie>();
             if (zombie != null) 
