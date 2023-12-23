@@ -31,7 +31,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        menu = playerControls.Player.Pause;
+        menu = playerControls.Pause.Pause;
         menu.Enable();
 
         menu.performed += Pause;
