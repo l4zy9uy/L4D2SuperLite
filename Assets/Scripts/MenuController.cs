@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour
 {
     [Header("Levels To Load")]
     public string _newGameLevel;
+    public GameObject soundManager;
     private string levelToLoad;
     [SerializeField] private GameObject noSavedGameDialog;
 
@@ -45,9 +46,14 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
+
+        // sound
+        DontDestroyOnLoad(soundManager);
+
+
+
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
-
         List<string> options = new List<string>();
 
         int currentResIndex = 0;
@@ -76,6 +82,7 @@ public class MenuController : MonoBehaviour
     }
     public void NewGameDialogYes()
     {
+        SoundManager.Instance.menuAudio.Stop();
         SceneManager.LoadScene(_newGameLevel);
     }
 

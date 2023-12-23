@@ -8,11 +8,11 @@ public class SoundManager : MonoBehaviour
         get;
         set;
     }
+    public AudioSource menuAudio;
+    public AudioSource sfxAudo;
 
-    public AudioSource shootingSoundAk47;
-    public AudioSource movingPlayer;
-
-    public List<AudioClip> audioSimpleList;
+    public AudioClip tiengSung;
+    public AudioClip tiengChan;
 
     private void Awake() {
         if(Instance != null && Instance != this) {
@@ -22,12 +22,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
+    public void PlayTiengSung()
+    {
+        if (sfxAudo)
+        {
+            sfxAudo.PlayOneShot(tiengSung);
+        }
+    }
     public void PlayFootStep(FirstPersonController controller,bool isPlaying = false)
     {
         if(isPlaying)
         {
-            controller.footStep.clip = audioSimpleList[0];
+            controller.footStep.clip = tiengChan;
             controller.footStep.Play();
         }
         else

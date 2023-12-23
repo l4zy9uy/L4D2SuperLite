@@ -61,7 +61,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         AudioListener.pause = true;
         pauseUI.SetActive(true);
-        InputManager.Instance.SetCursorState(false);  // Gọi hàm từ InputManager
+        InputManager.SetCursorState(false);  // Gọi hàm từ InputManager
     }
 
     public void DeactivateMenu()
@@ -71,7 +71,7 @@ public class PauseMenu : MonoBehaviour
         pauseUI.SetActive(false);
         isPaused = false;
         playerControls.Enable();
-        InputManager.Instance.SetCursorState(true);
+        InputManager.SetCursorState(true);
     }
 
     public void MainMenu()
@@ -81,6 +81,11 @@ public class PauseMenu : MonoBehaviour
         pauseUI.SetActive(false);
         isPaused = false;
         playerControls.Enable();
-        SceneManager.LoadSceneAsync("Main Menu");
+        SceneManager.LoadSceneAsync("MenuScene");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

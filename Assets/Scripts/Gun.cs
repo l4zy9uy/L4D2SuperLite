@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 
-enum GunType
+public enum GunType
 {
     AutomaticGun, Shotgun, PistolGun
 }
@@ -14,12 +14,12 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _timeBetweenShooting, _spread, _range, _reloadTime, _timeBetweenShots;
     [SerializeField] private int _bulletsPerTap;
     [SerializeField] private bool _allowButtonHold;
-    [SerializeField] private GunType _gunType;
+    [field:SerializeField] public GunType GunType {get; private set;}
 
     [field: SerializeField] public int bulletsLeft { get; private set; }
     [field: SerializeField] public int _bulletsShot { get; private set; }
     [field: SerializeField] public int _magazineSize { get; private set; }
-    [field: SerializeField] public int _currentBullets { get; private set; }
+    [field: SerializeField] public int _currentBullets { get; set; }
 
     //bools 
     private bool _readyToShoot;
@@ -76,7 +76,7 @@ public class Gun : MonoBehaviour
         _readyToShoot = false;
 
         //sound
-        SoundManager.Instance.shootingSoundAk47.Play();
+        SoundManager.Instance.PlayTiengSung();
 
         //Spread
         float x = Random.Range(-_spread, _spread);
@@ -90,12 +90,54 @@ public class Gun : MonoBehaviour
         {
             //Graphics
             Instantiate(_bulletHoleGraphic, _rayHit.point, transform.rotation);
+
+            //(myhh) to do: giảm dmg cho gun theo range và type
+            Zombie zombie = _rayHit.collider.GetComponent<Zombie>();
+            if (zombie != null) 
+            {
+                float distanceToZombie = Vector3.Distance(_fpsCam.transform.position, _rayHit.point);
+                Debug.Log("distance to enemy shooted: " + distanceToZombie);
+                ApplyDamageFall(distanceToZombie, zombie);
+            }
         }
-        if (_gunType != GunType.Shotgun || _bulletsShot <= 1) bulletsLeft--;
+        if (GunType != GunType.Shotgun || _bulletsShot <= 1) bulletsLeft--;
         _bulletsShot--;
         Invoke("ResetShot", _timeBetweenShooting);
 
         Burst();
+    }
+
+     //(myhh) todo: apply damage 
+    private void ApplyDamageFall(float distance, Zombie zombie) 
+    {
+        float damageMultiplier = 0;
+        if (GunType == GunType.Shotgun)
+        {
+            //ShotGun: Loses 30% damage per 50 units, max range 300
+            if (distance <= 300) 
+            {
+                damageMultiplier = Mathf.Max(0, 1 - (float)0.3*(distance/50));
+            }
+        }
+        else if (GunType == GunType.PistolGun)
+        {
+            //PistolGun: Loses 25% damage per 50 units, max range 250.
+            if (distance < 250)
+            {
+                damageMultiplier = Mathf.Max(0, 1 - (float)0.25*(distance/50));
+            }
+        }
+        else if (GunType == GunType.AutomaticGun)
+        {
+            //AutomaticGun: Loses 3% damage per 50 units, max range 300 units.
+            if (distance < 300) 
+            { 
+                damageMultiplier = Mathf.Max(0, 1 - (float)0.03*(distance/50));
+            }
+        }
+        float adjustedDamage = _damage * damageMultiplier;
+        Debug.Log("sat thuong tao ra: " + adjustedDamage);
+        zombie.takeDamage(adjustedDamage);
     }
 
     //this invoking supports multi bullets per-shot

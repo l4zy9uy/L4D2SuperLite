@@ -8,6 +8,7 @@ public class TimePlay : MonoBehaviour
     public int totalTime = 300;
     private int currentTime = 0;
     public Text txtTime;
+    public DialogScore dialogScore;
     private void Start()
     {
         currentTime = totalTime;
@@ -33,7 +34,11 @@ public class TimePlay : MonoBehaviour
             currentTime--;
             if(currentTime <= 0)
             {
-                //xu ly khi het thoi gian
+                //het gio setactive cho dialog, dung game va show gia tri
+                dialogScore.gameObject.SetActive(true);
+                //timescale = 0f : dung` game, = 1f chay bt
+                Time.timeScale = 0f;
+                DialogScore.Instance.Show();
             }
             UpdateTimer(IntToTime(currentTime));
         }

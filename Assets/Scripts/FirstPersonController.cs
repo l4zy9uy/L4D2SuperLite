@@ -57,6 +57,8 @@ using UnityEngine.InputSystem;
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+		// health bar
+		public ProgressBar healthBar;
 	
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		private PlayerInput _playerInput;
@@ -81,6 +83,15 @@ using UnityEngine.InputSystem;
 
 		private void Awake()
 		{
+			if (healthBar != null)
+			{
+				// Đặt giá trị thanh máu thành 100
+				healthBar.UpdateValue(30f);
+			}
+			else
+			{
+				Debug.LogError("HealthBar is not assigned to the FirstPersonController. Please assign it in the Inspector.");
+			}
 		}
 
 		private void Start()
@@ -187,10 +198,15 @@ using UnityEngine.InputSystem;
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+
 		//sound
 		if(_speed == 0)
 		{
-			SoundManager.Instance.PlayFootStep(this, false);
+			if(footStep != null)
+			{
+                SoundManager.Instance.PlayFootStep(this, false);
+            }
 		}
 		if (footStep.isPlaying == true)
 			return;
@@ -265,4 +281,30 @@ using UnityEngine.InputSystem;
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+		//goi khi mat mau
+		public void TakeDamage(float damage)
+		{
+			if (healthBar.BarValue - damage <= 0)
+			{
+				//xu ly player die
+			}
+			else
+			{
+				healthBar.UpdateValue(healthBar.BarValue - damage); // Giả sử damage là một số dương
+			}
+	}
+
+		// Gọi khi hồi phục máu
+		public void Heal(float healAmount)
+		{
+			if (healthBar.BarValue + healAmount > 100)
+			{
+				healthBar.UpdateValue(100);
+			}
+			else
+			{
+				healthBar.UpdateValue(healthBar.BarValue + healAmount);// Giả sử healAmount là một số dương
+			}
+	}
 	}
