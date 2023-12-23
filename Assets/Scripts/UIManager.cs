@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     public Image tacticalUI;
     public TextMeshProUGUI tacticalAmountUI;
 
-
+    public TextMeshProUGUI FPSText;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        FPSCounter.Instance.displayFPS(FPSText);
         Gun activeGun = WeaponController.Instance.activeGun.GetComponentInChildren<Gun>();
         if(activeGun)
         {

@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEditor;
-using UnityEditor.Animations;
-using UnityEngine.InputSystem.EnhancedTouch;
 
 public class HandsController : MonoBehaviour
 {
@@ -15,7 +12,7 @@ public class HandsController : MonoBehaviour
     public Transform rightForearm;
     public Transform rightHand;
 
-    [ContextMenu("Save weapon pose")]
+    /*[ContextMenu("Save weapon pose")]
     void SaveWeaponPose()
     {
         GameObjectRecorder recorder = new GameObjectRecorder(gameObject);
@@ -32,9 +29,9 @@ public class HandsController : MonoBehaviour
         recorder.TakeSnapshot(0.0f);
         recorder.SaveToClip(animationClip);
         AssetDatabase.SaveAssets();
-    }
+    }*/
 
-    void SaveHandPose(GameObjectRecorder recorder, Transform hand)
+    /*void SaveHandPose(GameObjectRecorder recorder, Transform hand)
     {
         recorder.BindComponentsOfType<Transform>(hand.gameObject, false);
 
@@ -50,5 +47,5 @@ public class HandsController : MonoBehaviour
                 recorder.BindComponentsOfType<Transform>(child.gameObject, false);
             }
         }
-    }
+    }*/
 }
