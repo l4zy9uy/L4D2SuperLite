@@ -29,6 +29,10 @@ public class InputManager : MonoBehaviour
     public bool secondaryWeapon;
     public bool ternaryWeapon;
 
+    private static bool canShoot = true;
+    private static bool canMove = true;
+    private static bool canJump = true;
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     private void Awake()
     {
@@ -46,7 +50,7 @@ public class InputManager : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!IsGamePaused())
+        if (!IsGamePaused() && canMove)
         {
             MoveInput(context.ReadValue<Vector2>());
         }
@@ -60,7 +64,7 @@ public class InputManager : MonoBehaviour
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started && canJump)
         {
             JumpInput(true);
         }
@@ -78,18 +82,22 @@ public class InputManager : MonoBehaviour
     }
     public void OnFire(InputAction.CallbackContext context)
     {
-        switch (context.phase)
+        // Kiểm tra xem có thể bắn không
+        if (canShoot)
         {
-            case InputActionPhase.Started:
-                ShootInput(true);
-                break;
-            case InputActionPhase.Performed:
-                break;
-            case InputActionPhase.Canceled:
-                ShootInput(false);
-                break;
-            default:
-                break;
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    ShootInput(true);
+                    break;
+                case InputActionPhase.Performed:
+                    break;
+                case InputActionPhase.Canceled:
+                    ShootInput(false);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public void OnPrimary(InputAction.CallbackContext context)
@@ -181,5 +189,20 @@ public class InputManager : MonoBehaviour
     private static bool IsGamePaused()
     {
         return Time.timeScale == 0;
+    }
+    public static void SetCanShoot(bool value)
+    {
+        canShoot = value;
+        Debug.Log($"canshoot set to: {canShoot}");
+    }
+
+    // Hàm để tắt/bật khả năng di chuyển
+    public static void SetCanMove(bool value)
+    {
+        canMove = value;
+    }
+    public static void SetCanJump(bool value)
+    {
+        canJump = value;
     }
 }

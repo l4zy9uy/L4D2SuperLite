@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     //public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
     private StarterAssets playerControls;
+    
 
     public bool isDead;
 
@@ -35,6 +37,9 @@ public class Player : MonoBehaviour
             isDead = true;
             StartCoroutine(DelayedLoadScene("GameOverScene", 4.5f));
             playerControls.Disable();
+            InputManager.SetCanShoot(false);
+            InputManager.SetCanMove(false);
+            InputManager.SetCanJump(false);
         }
         else
         {
