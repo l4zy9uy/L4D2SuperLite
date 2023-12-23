@@ -652,9 +652,11 @@ GameObject:
   - component: {fileID: 7485147489571402393}
   - component: {fileID: 7485147489571402395}
   - component: {fileID: 7485147489571402394}
-  - component: {fileID: 1451051930}
   - component: {fileID: 1451051925}
   - component: {fileID: 1451051931}
+  - component: {fileID: 1451051930}
+  - component: {fileID: 4335445072587746333}
+  - component: {fileID: 7964436668289892756}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -925,6 +927,36 @@ MonoBehaviour:
   primaryWeapon: 0
   secondaryWeapon: 0
   ternaryWeapon: 0
+--- !u!114 &1451051925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7485147489571402373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddeb18ddc8fe442e68dea7bdf17bb04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 100
+  BloodyScreen: {fileID: 0}
+  gameOverUI: {fileID: 0}
+  isDead: 0
+--- !u!114 &1451051931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7485147489571402373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b92ae453c3a84fd6b4aa159064c4483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImage: {fileID: 0}
+  fadeDuration: 3
 --- !u!95 &1451051930
 Animator:
   serializedVersion: 5
@@ -946,7 +978,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1451051925
+--- !u!114 &4335445072587746333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -962,7 +994,7 @@ MonoBehaviour:
   BloodyScreen: {fileID: 0}
   gameOverUI: {fileID: 0}
   isDead: 0
---- !u!114 &1451051931
+--- !u!114 &7964436668289892756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
