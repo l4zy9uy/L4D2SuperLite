@@ -12,7 +12,6 @@ public class Zombie : MonoBehaviour
     [SerializeField] GameObject leftHand;
     [SerializeField] GameObject rightHand;
     private NavMeshAgent NavAgent;
-
     public bool isDead;
 
     private void Awake()
@@ -54,26 +53,36 @@ public class Zombie : MonoBehaviour
             animator.SetTrigger("DIE2");
          }
          isDead = true;
+           
+            Destroy(gameObject,3f);
       }
       else
       {
          animator.SetTrigger("DAMAGE");
         }
    }
-   
-   // private void Update()
-   // {
-   //    if(NavAgent.velocity.magnitude > 0.1f)
-   //    {
-   //       animator.SetBool("isWalking", true);
-   //    }
-   //    else
-   //    {
-   //       animator.SetBool("isWalking", false);
-   //    }
-   // }
 
-   private void OnDrawGizmos()
+    private void OnDestroy()
+    {
+        //zomie chet cong diem, update bo dem, set gia tri cho point
+        CountingPoint.Instance.point++;
+        CountingPoint.Instance.UpdatePointCounter(CountingPoint.Instance.point);
+        CountingPoint.Instance.SetPoint(CountingPoint.Instance.point);
+    }
+
+    // private void Update()
+    // {
+    //    if(NavAgent.velocity.magnitude > 0.1f)
+    //    {
+    //       animator.SetBool("isWalking", true);
+    //    }
+    //    else
+    //    {
+    //       animator.SetBool("isWalking", false);
+    //    }
+    // }
+
+    private void OnDrawGizmos()
    {
       Gizmos.color = Color.red;
       Gizmos.DrawWireSphere(transform.position, 2.5f); //Attacking //Stop attacking
