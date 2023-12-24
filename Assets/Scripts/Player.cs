@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     //public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
     private StarterAssets playerControls;
+    public DialogScore dialogScore;
 
     public bool isDead;
 
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour
             isDead = true;
             StartCoroutine(DelayedLoadScene("GameOverScene", 3.5f));
             playerControls.Disable();
+            dialogScore.gameObject.SetActive(true);
+            DialogScore.Instance.Show();
         }
         else
         {

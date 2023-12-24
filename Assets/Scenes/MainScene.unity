@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.029152213, g: 0.064445764, b: 0.12695098, a: 1}
+  m_IndirectSpecularColor: {r: 0.029152164, g: 0.064445704, b: 0.12695073, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -872,14 +872,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 566706192, guid: aa68734387daa1ce99e8df05d9b33b8d, type: 3}
-      propertyPath: totalTime
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 566706192, guid: aa68734387daa1ce99e8df05d9b33b8d, type: 3}
-      propertyPath: gameOverUI
-      value: 
-      objectReference: {fileID: 465841892}
     - target: {fileID: 715436183834784300, guid: aa68734387daa1ce99e8df05d9b33b8d,
         type: 3}
       propertyPath: m_RootOrder
@@ -940,11 +932,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Pfb
       objectReference: {fileID: 0}
-    - target: {fileID: 6742466346000724719, guid: aa68734387daa1ce99e8df05d9b33b8d,
-        type: 3}
-      propertyPath: dialogScore
-      value: 
-      objectReference: {fileID: 972680340}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa68734387daa1ce99e8df05d9b33b8d, type: 3}
 --- !u!114 &1124073533 stripped
@@ -1208,11 +1195,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager Pfb
       objectReference: {fileID: 0}
-    - target: {fileID: 7919964557531126049, guid: 547d00ea30f3b076495be184b1231f45,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7919964557877990204, guid: 547d00ea30f3b076495be184b1231f45,
         type: 3}
       propertyPath: sfxAudio
@@ -1474,11 +1456,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: zombie Pfb
       objectReference: {fileID: 0}
-    - target: {fileID: 6803256632897131430, guid: 0a531cc3301f3461d9298e4f6ccd039a,
-        type: 3}
-      propertyPath: initialZombiePerWave
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a531cc3301f3461d9298e4f6ccd039a, type: 3}
 --- !u!1 &2114283753834967212
@@ -1739,6 +1716,11 @@ PrefabInstance:
       objectReference: {fileID: 465841892}
     - target: {fileID: 329078091208565010, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
         type: 3}
+      propertyPath: dialogScore
+      value: 
+      objectReference: {fileID: 972680340}
+    - target: {fileID: 329078091208565010, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
+        type: 3}
       propertyPath: BloodyScreen
       value: 
       objectReference: {fileID: 1572867988}
@@ -1797,30 +1779,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7485147488201312497, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
-        type: 3}
-      propertyPath: _damage
-      value: 2000
-      objectReference: {fileID: 0}
     - target: {fileID: 7485147489571402395, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
         type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1124073533}
-    - target: {fileID: 7485147490241400539, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
-        type: 3}
-      propertyPath: _damage
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7485147490241400539, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
-        type: 3}
-      propertyPath: _allowButtonHold
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7485147490241400539, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0,
-        type: 3}
-      propertyPath: <GunType>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3534f98ebc4c9082c9d0252cfbfc0ca0, type: 3}

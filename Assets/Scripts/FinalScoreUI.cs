@@ -13,7 +13,7 @@ public class FinalScoreUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(DialogScore.Instance.curScore);
+        Debug.Log($"abc: {DialogScore.Instance.curScore}");
         finalScore.text = DialogScore.Instance.curScore.ToString();
     }
 }

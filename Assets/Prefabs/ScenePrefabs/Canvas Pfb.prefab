@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.004889, y: -0.000024319}
-  m_SizeDelta: {x: 1000, y: 543}
+  m_AnchoredPosition: {x: 2.8794, y: -0.000024319}
+  m_SizeDelta: {x: 1005.7687, y: 543}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &52882968
 CanvasRenderer:
@@ -285,8 +285,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00010681, y: 0}
-  m_SizeDelta: {x: 1000, y: 543}
+  m_AnchoredPosition: {x: -0.00053405, y: 144.9371}
+  m_SizeDelta: {x: 999.99, y: 253.1257}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &400531286
 CanvasRenderer:
@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee2aad0de1e046ae84674e62b3e7095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointTxt: {fileID: 0}
 --- !u!1 &510658092
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d9a1a29fcf1f74980ea956605842d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 5000
+  totalTime: 100
+  currentTime: 0
   txtTime: {fileID: 566706193}
   dialogScore: {fileID: 1839273645}
   gameOverUI: {fileID: 400531283}

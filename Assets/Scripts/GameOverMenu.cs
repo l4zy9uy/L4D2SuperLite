@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
+    public TextMeshProUGUI pointTxt;
+
     public void PlayAgain()
     {
         // Load lại scene hiện tại (GameOverScene)

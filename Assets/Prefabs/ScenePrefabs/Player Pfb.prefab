@@ -1059,6 +1059,7 @@ MonoBehaviour:
   HP: 100
   BloodyScreen: {fileID: 0}
   gameOverUI: {fileID: 0}
+  dialogScore: {fileID: 0}
   isDead: 0
   healthBar: {fileID: 0}
 --- !u!114 &1451051931
