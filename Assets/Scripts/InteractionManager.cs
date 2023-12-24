@@ -47,16 +47,16 @@ public class InteractionManager : MonoBehaviour
                             {
                                 // kiem tra xem thung dan hien tai co phai la dan cua pistol va hien tai dang cam khau pistol hay k
                                 case AmmoBox.AmmoType.PistolAmmo:
-                                        activeGun._currentBullets += hoverAmmoBox.ammoPistolAmount;
-                                        Destroy(objectHitRaycast.gameObject);                                 
+                                    activeGun._currentBullets += hoverAmmoBox.ammoPistolAmount;
+                                    Destroy(objectHitRaycast.gameObject);
                                     break;
                                 case AmmoBox.AmmoType.ShotGunAmmo:
-                                        activeGun._currentBullets += hoverAmmoBox.ammoShotGunAmount;
-                                        Destroy(objectHitRaycast.gameObject);                     
+                                    activeGun._currentBullets += hoverAmmoBox.ammoShotGunAmount;
+                                    Destroy(objectHitRaycast.gameObject);
                                     break;
                                 case AmmoBox.AmmoType.AutoAmmo:
-                                        activeGun._currentBullets += hoverAmmoBox.ammoAutoAmount;
-                                        Destroy(objectHitRaycast.gameObject);
+                                    activeGun._currentBullets += hoverAmmoBox.ammoAutoAmount;
+                                    Destroy(objectHitRaycast.gameObject);
                                     break;
                                 case AmmoBox.AmmoType.All:
                                     WeaponController.Instance.weapons[0]._currentBullets += hoverAmmoBox.ammoAutoAmount;
@@ -64,6 +64,7 @@ public class InteractionManager : MonoBehaviour
                                     WeaponController.Instance.weapons[2]._currentBullets += hoverAmmoBox.ammoPistolAmount;
                                     Destroy(objectHitRaycast.gameObject);
                                     break;
+                                default: break;
                             }
                         }
                     }
@@ -79,4 +80,7 @@ public class InteractionManager : MonoBehaviour
             }
         }
     }
+
+
 }
+

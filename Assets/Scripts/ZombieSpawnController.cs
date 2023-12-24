@@ -8,11 +8,11 @@ public class ZombieSpawnController : MonoBehaviour
     public int currentZombiePerWave;
     public float spawnDelay = 0.5f; // Thời gian delay giữa mỗi lần sinh zombie
 
-    public int currentWave =0;
+    public int currentWave = 0;
     public float waveCooldown = 10.0f; // Thời gian delay giữa mỗi wave
 
     public bool inCooldown;
-    public float cooldownCounter = 0; //  dùng để test và UI
+    public float cooldownCounter = 0; // Đếm thời gian cooldown
 
     public List<Zombie> currentZombiesAlive;
 
@@ -33,7 +33,7 @@ public class ZombieSpawnController : MonoBehaviour
 
     private IEnumerator SpawnWave()
     {
-        for (int i=0; i < currentZombiePerWave; i++)
+        for (int i = 0; i < currentZombiePerWave; i++)
         {
             // Sinh ngẫu nhiên zombie từ 4 hướng
             Vector3 spawnOffset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
@@ -54,7 +54,7 @@ public class ZombieSpawnController : MonoBehaviour
     private void Update()
     {
         List<Zombie> zombiesToRemove = new List<Zombie>();
-        foreach(Zombie zombie in currentZombiesAlive)
+        foreach (Zombie zombie in currentZombiesAlive)
         {
             if (zombie.isDead)
             {
@@ -63,7 +63,7 @@ public class ZombieSpawnController : MonoBehaviour
         }
 
         // Xóa zombie đã chết khỏi list
-        foreach(Zombie zombie in zombiesToRemove)
+        foreach (Zombie zombie in zombiesToRemove)
         {
             currentZombiesAlive.Remove(zombie);
         }
@@ -83,14 +83,15 @@ public class ZombieSpawnController : MonoBehaviour
         {
             cooldownCounter = waveCooldown;
         }
-        
+
     }
     private IEnumerator WaveCooldown()
     {
         inCooldown = true;
         yield return new WaitForSeconds(waveCooldown);
         inCooldown = false;
-        currentZombiePerWave *= 2;
+        currentZombiePerWave += 3;
         StartNextWave();
     }
 }
+

@@ -14,6 +14,7 @@ public class FinalScoreUI : MonoBehaviour
     void Update()
     {
         Debug.Log($"abc: {DialogScore.Instance.curScore}");
-        finalScore.text = DialogScore.Instance.curScore.ToString();
+        //finalScore.text = DialogScore.Instance.curScore.ToString();
+        finalScore.text = $"Final score:\n{DialogScore.Instance.curScore}";
     }
 }

@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
     public TextMeshProUGUI pointTxt;
 
+    private void Start()
+    {
+        InputSystem.EnableDevice(Keyboard.current);
+        InputSystem.EnableDevice(Mouse.current);
+    }
     public void PlayAgain()
     {
         // Load lại scene hiện tại (GameOverScene)
