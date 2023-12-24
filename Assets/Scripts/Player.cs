@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     public bool isDead;
 
+    public ProgressBar healthBar;
     void Awake()
     {
         playerControls = new StarterAssets();
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour
     public void takeDamage(int damageAmount)
     {
         HP -= damageAmount;
-
+        healthBar.UpdateValue(HP);
         if (HP <= 0)
         {
             print("Player is dead");
