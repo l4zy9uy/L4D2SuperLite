@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
     public int HP = 100;
     public GameObject BloodyScreen;
     //public TextMeshProUGUI playerHealthUI;
@@ -17,6 +18,17 @@ public class Player : MonoBehaviour
     public ProgressBar healthBar;
     void Awake()
     {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         playerControls = new StarterAssets();
     }
 
@@ -34,7 +46,7 @@ public class Player : MonoBehaviour
             print("Player is dead");
             PlayerDead();
             isDead = true;
-            StartCoroutine(DelayedLoadScene("GameOverScene", 4.5f));
+            StartCoroutine(DelayedLoadScene("GameOverScene", 3.5f));
             playerControls.Disable();
         }
         else
@@ -47,24 +59,18 @@ public class Player : MonoBehaviour
 
     public void PlayerDead()
     {
-        //Khoá hiệu ứng di chuyển chuột và bàn phím
-
-        //GetComponent<MouseMovement>().enabled = false;
-        //GetComponent<PlayerMovement>().enabled = false;
-
         // die animation
         GetComponentInChildren<Animator>().enabled = true;
-        //playerHealthUI.gameObject.SetActive(false);
-
-        GetComponent<ScreenFader>().StartFade();
+        /*GetComponent<ScreenFader>().StartFade();
         StartCoroutine(ShowGameOverUI());
-        InputManager.SetCursorState(false);
+        InputManager.SetCursorState(false);*/
     }
 
     private IEnumerator DelayedLoadScene(string sceneName, float delay)
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
+        Debug.Log("Scene Loaded");
     }
 
     private IEnumerator ShowGameOverUI()

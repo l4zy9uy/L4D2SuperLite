@@ -206,8 +206,6 @@ using UnityEngine.InputSystem;
 		}
 		if (footStep.isPlaying == true)
 			return;
-		Debug.Log(footStep.isPlaying);
-			Debug.Log("okokokokoko");
 		SoundManager.Instance.PlayFootStep(this, true);
     }
 

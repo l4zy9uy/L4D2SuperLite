@@ -27,6 +27,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI tacticalAmountUI;
 
     public TextMeshProUGUI FPSText;
+    public GameObject BloodyScreen;
+    //public TextMeshProUGUI playerHealthUI;
+    public GameObject gameOverUI;
+    public ScreenFader screenFader;
+
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -54,30 +59,47 @@ public class UIManager : MonoBehaviour
         Gun activeGun = WeaponController.Instance.activeGun.GetComponentInChildren<Gun>();
         if(activeGun)
         {
-            magazineAmmoUI.text = $"{activeGun.bulletsLeft}";
-            totalAmmoUI.text = $"{activeGun._currentBullets}";
-
-            GunType model;
-            if(WeaponController.Instance.activeGun._magazineSize == 30)
-            {
-                model = GunType.AutomaticGun;
-            }
-            else if(WeaponController.Instance.activeGun._magazineSize == 10)
-            {
-                model = GunType.Shotgun;
-            }
-            else 
-            {
-                model = GunType.PistolGun;
-            }
-            ammoTypeUI.sprite = GetAmmoSprite(model);
-            activeWeaponUI.sprite = GetWeaponSprite(model);
+            displayGunInfor(activeGun);
         }
-
-       /* _activeGun = WeaponController.Instance.activeGun;
-        _ammo.SetText(_activeGun.bulletsLeft + " / " + _activeGun._currentBullets);*/
+        if(Player.Instance.isDead)
+        {
+            displayPlayerDead();
+        }
     }
 
+    void displayPlayerDead()
+    {
+        screenFader.StartFade();
+        StartCoroutine(ShowGameOverUI());
+        InputManager.SetCursorState(false);
+    }
+
+    private IEnumerator ShowGameOverUI()
+    {
+        yield return new WaitForSeconds(1f);
+        gameOverUI.gameObject.SetActive(true);
+    }
+    private void displayGunInfor(Gun activeGun)
+    {
+        magazineAmmoUI.text = $"{activeGun.bulletsLeft}";
+        totalAmmoUI.text = $"{activeGun._currentBullets}";
+
+        GunType model;
+        if (WeaponController.Instance.activeGun._magazineSize == 30)
+        {
+            model = GunType.AutomaticGun;
+        }
+        else if (WeaponController.Instance.activeGun._magazineSize == 10)
+        {
+            model = GunType.Shotgun;
+        }
+        else
+        {
+            model = GunType.PistolGun;
+        }
+        ammoTypeUI.sprite = GetAmmoSprite(model);
+        activeWeaponUI.sprite = GetWeaponSprite(model);
+    }
     private Sprite GetWeaponSprite(GunType model)
     {
         if (WeaponController.Instance.activeGun._magazineSize == 30)
