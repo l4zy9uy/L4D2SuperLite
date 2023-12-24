@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654a0c841bf87401e9d183d4948ad2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 300
   leftForeArm: {fileID: 5164360391173212809}
   rightForeArm: {fileID: 211494266432143832}
   leftHand: {fileID: 1707237949265830203}

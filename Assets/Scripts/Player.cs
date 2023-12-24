@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //playerHealthUI.text = $"Health: {HP}";
+        InputSystem.EnableDevice(Keyboard.current);
+        InputSystem.EnableDevice(Mouse.current);
     }
 
     public void takeDamage(int damageAmount)
@@ -64,6 +67,8 @@ public class Player : MonoBehaviour
     {
         // die animation
         GetComponentInChildren<Animator>().enabled = true;
+        InputSystem.DisableDevice(Keyboard.current);
+        InputSystem.DisableDevice(Mouse.current);
         /*GetComponent<ScreenFader>().StartFade();
         StartCoroutine(ShowGameOverUI());
         InputManager.SetCursorState(false);*/
