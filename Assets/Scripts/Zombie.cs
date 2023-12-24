@@ -61,19 +61,20 @@ public class Zombie : MonoBehaviour
             animator.SetTrigger("DIE2");
          }
          isDead = true;
+         GetComponent<CapsuleCollider>().enabled = false;
       }
       else
       {
          animator.SetTrigger("DAMAGE");
       }
-        //(myhh) todo: zombie chet se hien ra hop qua bat ky
-       if (!hasSpawnedPowerup)
+        if (!hasSpawnedPowerup)
         {
-            SpawnPowerup();
+            Invoke("SpawnPowerup", 3f);
             hasSpawnedPowerup = true;
         }
         Destroy(gameObject, 3f);
-   }
+        //(myhh) todo: zombie chet se hien ra hop qua bat ky
+    }
 
    private void SpawnPowerup()
     {
@@ -110,6 +111,12 @@ public class Zombie : MonoBehaviour
             Instantiate(pistolAmmoPrf, spawnPosition, Quaternion.identity);
         }
     }
+
+    private IEnumerator DelayedSpawnPowerup()
+    {
+        yield return new WaitForSeconds(3f); // Adjust the delay time as needed
+    }
+
     private void OnDestroy()
     {
         //zomie chet cong diem, update bo dem, set gia tri cho point

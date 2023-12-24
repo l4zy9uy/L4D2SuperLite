@@ -570,9 +570,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d9a1a29fcf1f74980ea956605842d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 10
+  totalTime: 5000
   txtTime: {fileID: 566706193}
   dialogScore: {fileID: 1839273645}
+  gameOverUI: {fileID: 400531283}
 --- !u!1 &1045163134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1194,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txtHighScore: {fileID: 1172500799}
   txtCurScore: {fileID: 510658094}
+  highScore: 0
+  curScore: 0
 --- !u!1 &1946037333
 GameObject:
   m_ObjectHideFlags: 0

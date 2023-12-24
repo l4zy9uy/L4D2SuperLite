@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a715c21241f5d4fbc6b9afca36b3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 20
+  _damage: 2000
   _timeBetweenShooting: 0.08
   _spread: 0.001
   _range: 100
@@ -1731,7 +1731,7 @@ PrefabInstance:
       objectReference: {fileID: 7485147489006254529}
     - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
       propertyPath: _damage
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
       propertyPath: _fpsCam
@@ -1771,7 +1771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
       propertyPath: _allowButtonHold
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
       propertyPath: _bulletHoleGraphic
@@ -1785,6 +1785,10 @@ PrefabInstance:
     - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
       propertyPath: _timeBetweenShooting
       value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
+      propertyPath: <GunType>k__BackingField
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1867224533, guid: 6f2a52dd76021d34a85e72ed9e38ab0f, type: 3}
       propertyPath: <bulletsLeft>k__BackingField

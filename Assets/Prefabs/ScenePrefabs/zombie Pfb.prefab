@@ -99,6 +99,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3213684433022646815, guid: deda5db71a2a44aab8d68790f2515b47,
+        type: 3}
+      propertyPath: initialZombiePerWave
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3213684434183365483, guid: deda5db71a2a44aab8d68790f2515b47,
         type: 3}
       propertyPath: m_LocalPosition.x

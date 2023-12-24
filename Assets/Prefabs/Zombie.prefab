@@ -1239,6 +1239,17 @@ MonoBehaviour:
   leftHand: {fileID: 1707237949265830203}
   rightHand: {fileID: 6524363469305301903}
   isDead: 0
+  firstAidKitPrf: {fileID: 1488591136578006, guid: 5d3c99e4b9889a242a1b8c20211452c5,
+    type: 3}
+  pistolAmmoPrf: {fileID: 5552464919365570435, guid: 41b7fe655a27bc043aee294410aee7b5,
+    type: 3}
+  akAmmoPrf: {fileID: 1608925475237010592, guid: 40d4cbca36327b94cacd287fbc15e3a7,
+    type: 3}
+  shotGunAmmoPrf: {fileID: 79280137674487262, guid: f270fa9632d7c34458503a3789263053,
+    type: 3}
+  allGunAmmoPrf: {fileID: 3218744107795719090, guid: 368037c752acd544f9859948c0795115,
+    type: 3}
+  spawnOffset: 1
 --- !u!114 &2412871683270695184
 MonoBehaviour:
   m_ObjectHideFlags: 0
