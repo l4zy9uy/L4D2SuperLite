@@ -13,6 +13,14 @@ public class Zombie : MonoBehaviour
     [SerializeField] GameObject rightHand;
     private NavMeshAgent NavAgent;
     public bool isDead;
+    public GameObject firstAidKitPrf;
+    public GameObject pistolAmmoPrf;
+    public GameObject akAmmoPrf;
+    public GameObject shotGunAmmoPrf;
+    public GameObject allGunAmmoPrf;
+    public float spawnOffset = 1.0f;
+    private bool hasSpawnedPowerup = false;
+
 
     private void Awake()
     {
@@ -39,7 +47,7 @@ public class Zombie : MonoBehaviour
         }
     }
     public void takeDamage(float damage)
-   {
+    {
       HP -= damage;
       if (HP <= 0)
       {
@@ -53,15 +61,55 @@ public class Zombie : MonoBehaviour
             animator.SetTrigger("DIE2");
          }
          isDead = true;
-         GetComponent<CapsuleCollider>().enabled = false;
-         Destroy(gameObject,3f);
       }
       else
       {
          animator.SetTrigger("DAMAGE");
+      }
+        //(myhh) todo: zombie chet se hien ra hop qua bat ky
+       if (!hasSpawnedPowerup)
+        {
+            SpawnPowerup();
+            hasSpawnedPowerup = true;
         }
+        Destroy(gameObject, 3f);
    }
 
+   private void SpawnPowerup()
+    {
+        Debug.Log("random box");
+        // Random loại Powerup (1-5: hop dan all, 6-10: first aid kit, 11-20: hop dan shotgun, 
+        //                      21-30: hop dan ak, 31-70: hop dan pistol, 71-100: ko ra)
+        int powerupType = Random.Range(1, 100);  
+        Debug.Log(powerupType);
+        Vector3 spawnPosition = transform.position + transform.up * spawnOffset;
+        spawnPosition.y = 0;
+        if (powerupType <= 5)
+        {
+            //Xuat hien ammo box all
+            Instantiate(allGunAmmoPrf, spawnPosition, Quaternion.identity);
+        }
+        else if (powerupType > 5 && powerupType <= 10)
+        {
+            //xuat hien first aid kit   
+            Instantiate(firstAidKitPrf, spawnPosition, Quaternion.identity);
+        }
+        else if (powerupType > 10 && powerupType <= 20)
+        {
+            //xuat hien ammo box shotgun
+            Instantiate(shotGunAmmoPrf, spawnPosition, Quaternion.identity);
+        }
+        else if (powerupType > 20 && powerupType <= 30)
+        {
+            //xuat hien ammo box ak
+            Instantiate(akAmmoPrf, spawnPosition, Quaternion.identity);
+        }
+        else if (powerupType > 30 && powerupType <= 70)
+        {
+            //xuat hien ammo box pistol
+            Instantiate(pistolAmmoPrf, spawnPosition, Quaternion.identity);
+        }
+    }
     private void OnDestroy()
     {
         //zomie chet cong diem, update bo dem, set gia tri cho point
