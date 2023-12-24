@@ -2,19 +2,26 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public int HP = 100;
     public GameObject BloodyScreen;
-    public TextMeshProUGUI playerHealthUI;
+    //public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
+    private StarterAssets playerControls;
 
     public bool isDead;
 
+    void Awake()
+    {
+        playerControls = new StarterAssets();
+    }
+
     private void Start()
     {
-        playerHealthUI.text = $"Health: {HP}";
+        //playerHealthUI.text = $"Health: {HP}";
     }
 
     public void takeDamage(int damageAmount)
@@ -26,16 +33,18 @@ public class Player : MonoBehaviour
             print("Player is dead");
             PlayerDead();
             isDead = true;
+            StartCoroutine(DelayedLoadScene("GameOverScene", 4.5f));
+            playerControls.Disable();
         }
         else
         {
             print("Player hit");
             StartCoroutine(bloodyScreenEffect());
-            playerHealthUI.text = $"Health: {HP}";
+            //playerHealthUI.text = $"Health: {HP}";
         }
     }
 
-    private void PlayerDead()
+    public void PlayerDead()
     {
         //Khoá hiệu ứng di chuyển chuột và bàn phím
 
@@ -44,10 +53,17 @@ public class Player : MonoBehaviour
 
         // die animation
         GetComponentInChildren<Animator>().enabled = true;
-        playerHealthUI.gameObject.SetActive(false);
+        //playerHealthUI.gameObject.SetActive(false);
 
         GetComponent<ScreenFader>().StartFade();
         StartCoroutine(ShowGameOverUI());
+        InputManager.SetCursorState(false);
+    }
+
+    private IEnumerator DelayedLoadScene(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
     }
 
     private IEnumerator ShowGameOverUI()
@@ -62,7 +78,9 @@ public class Player : MonoBehaviour
         {
             BloodyScreen.SetActive(true);
         }
-        var image = BloodyScreen.GetComponentInChildren<RawImage>();
+
+        yield return new WaitForSeconds(4f);
+        var image = BloodyScreen.GetComponentInChildren<Image>();
 
         if (image != null)  // Kiểm tra xem image có tồn tại không
         {
@@ -91,7 +109,7 @@ public class Player : MonoBehaviour
             Debug.LogError("Image component not found in bloodyScreen.");
         }
 
-        if (BloodyScreen.activeInHierarchy == true)
+        if (BloodyScreen.activeInHierarchy)
         {
             BloodyScreen.SetActive(false);
         }

@@ -4,23 +4,42 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager instance;
-    public AudioSource audioSource;
-    public AudioClip[] audioClips;
+    public static SoundManager Instance {
+        get;
+        set;
+    }
+    public AudioSource menuAudio;
+    public AudioSource sfxAudo;
 
-    public AudioClip zombieWalking;
-    public AudioClip zombieChase;
-    public AudioClip zombieAttack;
-    public AudioClip zombieHurt;
-    public AudioClip zombieDeath;
-    public AudioSource zombieChannel;
-    private void Awake()
-    {
-        instance = this;
+    public AudioClip tiengSung;
+    public AudioClip tiengChan;
+
+    private void Awake() {
+        if(Instance != null && Instance != this) {
+            Destroy(gameObject);
+        } else {
+            Instance = this;
+        }
     }
 
-    public void PlaySound(int index)
+    public void PlayTiengSung()
     {
-        audioSource.PlayOneShot(audioClips[index]);
+        if (sfxAudo)
+        {
+            sfxAudo.PlayOneShot(tiengSung);
+        }
+    }
+    public void PlayFootStep(FirstPersonController controller,bool isPlaying = false)
+    {
+        if(isPlaying)
+        {
+            controller.footStep.clip = tiengChan;
+            controller.footStep.Play();
+        }
+        else
+        {
+            if(controller.footStep != null)
+                controller.footStep.Stop();
+        }
     }
 }
