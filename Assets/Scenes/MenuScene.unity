@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2265,9 +2265,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuAudio: {fileID: 384393998}
-  sfxAudo: {fileID: 384394001}
-  tiengSung: {fileID: 8300000, guid: 02f09845716e2294e9fc4651aa725b15, type: 3}
-  tiengChan: {fileID: 8300000, guid: 34faa4dc7c5c21645a89d4892e1a2b1a, type: 3}
+  sfxAudio: {fileID: 384393998}
+  gunSound: {fileID: 8300000, guid: 02f09845716e2294e9fc4651aa725b15, type: 3}
+  footStepSound: {fileID: 8300000, guid: dc5199ebb655eb54ca5faba2b537d1ff, type: 3}
 --- !u!4 &384394000
 Transform:
   m_ObjectHideFlags: 0

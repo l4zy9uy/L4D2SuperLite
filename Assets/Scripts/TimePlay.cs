@@ -9,6 +9,7 @@ public class TimePlay : MonoBehaviour
     private int currentTime = 0;
     public Text txtTime;
     public DialogScore dialogScore;
+    public GameObject gameOverUI;
     private void Start()
     {
         currentTime = totalTime;
@@ -34,6 +35,7 @@ public class TimePlay : MonoBehaviour
             currentTime--;
             if(currentTime <= 0)
             {
+                gameOverUI.gameObject.SetActive(true);
                 //het gio setactive cho dialog, dung game va show gia tri
                 dialogScore.gameObject.SetActive(true);
                 //timescale = 0f : dung` game, = 1f chay bt

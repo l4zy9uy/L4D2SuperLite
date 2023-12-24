@@ -8,8 +8,8 @@ public class DialogScore : MonoBehaviour
     public Text txtHighScore;
     public Text txtCurScore;
 
-    int highScore = 0;
-    int curScore = 0;
+    public int highScore = 0;
+    public int curScore = 0;
 
     public static DialogScore Instance;
     private void Awake()

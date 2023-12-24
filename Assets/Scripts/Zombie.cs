@@ -53,8 +53,8 @@ public class Zombie : MonoBehaviour
             animator.SetTrigger("DIE2");
          }
          isDead = true;
-           
-            Destroy(gameObject,3f);
+         GetComponent<CapsuleCollider>().enabled = false;
+         Destroy(gameObject,3f);
       }
       else
       {

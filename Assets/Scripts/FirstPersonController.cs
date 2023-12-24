@@ -87,7 +87,7 @@ using UnityEngine.InputSystem;
 			if (healthBar != null)
 			{
 				// Đặt giá trị thanh máu thành 100
-				healthBar.UpdateValue(30f);
+				healthBar.UpdateValue(100f);
 			}
 			else
 			{
