@@ -77,6 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuAudio: {fileID: 0}
-  sfxAudo: {fileID: 0}
-  tiengSung: {fileID: 8300000, guid: 02f09845716e2294e9fc4651aa725b15, type: 3}
-  tiengChan: {fileID: 8300000, guid: dc5199ebb655eb54ca5faba2b537d1ff, type: 3}
+  sfxAudio: {fileID: 0}
+  gunSound: {fileID: 0}
+  footStepSound: {fileID: 0}

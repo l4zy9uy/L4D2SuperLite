@@ -38,9 +38,6 @@ public class Gun : MonoBehaviour
     [SerializeField] private ProceduralRecoil recoil;
     [field: SerializeField] public AnimationClip _animationClip { get; private set; }
 
-
-    // public GameObject muzzleEffect;
-
     private void Awake()
     {
         bulletsLeft = _magazineSize;
@@ -67,17 +64,11 @@ public class Gun : MonoBehaviour
     }
     public void Shoot()
     {
-
-        // muzzleEffect.GetComponent<ParticleSystem>().Play();
-        Debug.Log("gun");
-
         _muzzleFlash.Play();
         recoil.recoil();
         _readyToShoot = false;
-
         //sound
-        SoundManager.Instance.PlayTiengSung();
-
+        SoundManager.Instance.playGunSound();
         //Spread
         float x = Random.Range(-_spread, _spread);
         float y = Random.Range(-_spread, _spread);

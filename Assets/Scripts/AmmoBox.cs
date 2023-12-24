@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AmmoBox : MonoBehaviour
 {
-    // Start is called before the first frame update
     public int ammoAutoAmount = 60;
     public int ammoShotGunAmount = 15;
     public int ammoPistolAmount = 25;

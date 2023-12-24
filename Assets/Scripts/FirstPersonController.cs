@@ -59,6 +59,7 @@ using UnityEngine.InputSystem;
 		private float _fallTimeoutDelta;
 		// health bar
 		public ProgressBar healthBar;
+		public AudioSource footStep;
 	
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		private PlayerInput _playerInput;
@@ -117,6 +118,7 @@ using UnityEngine.InputSystem;
 
 		private void LateUpdate()
 		{
+			//the reason why camera's rotation in lateupdate is that the camera can always keep up with its target, the player, who move during update
 			CameraRotation();
 		}
 
@@ -148,14 +150,8 @@ using UnityEngine.InputSystem;
 				transform.Rotate(Vector3.up * _rotationVelocity);
 			}
 		}
-
-		public AudioSource footStep;
 		private void Move()
 		{
-
-			
-			
-
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = InputManager.Instance.sprint ? SprintSpeed : MoveSpeed;
 

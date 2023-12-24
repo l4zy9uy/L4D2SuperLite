@@ -1293,8 +1293,8 @@ MonoBehaviour:
   TopClamp: 89
   BottomClamp: -89
   healthBar: {fileID: 0}
-  _mainCamera: {fileID: 7485147490142591536}
   footStep: {fileID: 1451051925}
+  _mainCamera: {fileID: 7485147490142591536}
 --- !u!114 &7485147489571402394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,6 +1451,7 @@ MonoBehaviour:
   BloodyScreen: {fileID: 1045163134}
   gameOverUI: {fileID: 400531283}
   isDead: 0
+  healthBar: {fileID: 0}
 --- !u!114 &1451051931
 MonoBehaviour:
   m_ObjectHideFlags: 0
