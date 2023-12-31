@@ -18,6 +18,8 @@ public class Zombie : MonoBehaviour
     public GameObject akAmmoPrf;
     public GameObject shotGunAmmoPrf;
     public GameObject allGunAmmoPrf;
+    public BoxCollider hand1;
+    public BoxCollider hand2;
     public float spawnOffset = 1.0f;
     private bool hasSpawnedPowerup = false;
 
@@ -63,6 +65,8 @@ public class Zombie : MonoBehaviour
             }
             isDead = true;
             GetComponent<CapsuleCollider>().enabled = false;
+            hand1.enabled = false;
+            hand2.enabled = false;
             if (!hasSpawnedPowerup)
             {
                 Invoke("SpawnPowerup", 3f);
@@ -86,12 +90,12 @@ public class Zombie : MonoBehaviour
         Debug.Log(powerupType);
         Vector3 spawnPosition = transform.position + transform.up * spawnOffset;
         spawnPosition.y = 0;
-        if (powerupType <= 2)
+        if (powerupType <= 9)
         {
             //Xuat hien ammo box all
             Instantiate(allGunAmmoPrf, spawnPosition, Quaternion.identity);
         }
-        else if (powerupType > 2 && powerupType <= 10)
+        else if (powerupType > 9 && powerupType <= 10)
         {
             //xuat hien first aid kit   
             Instantiate(firstAidKitPrf, spawnPosition, Quaternion.identity);

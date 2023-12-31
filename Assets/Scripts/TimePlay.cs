@@ -56,7 +56,7 @@ public class TimePlay : MonoBehaviour
                 //timescale = 0f : dung` game, = 1f chay bt
 
                 //Time.timeScale = 0f;
-
+                InputManager.SetCursorState(false);
                 SceneManager.LoadScene("GameOverScene");
                 DialogScore.Instance.Show();
 

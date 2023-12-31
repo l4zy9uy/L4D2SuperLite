@@ -32,6 +32,9 @@ public class Player : MonoBehaviour
         }
 
         playerControls = new StarterAssets();
+        InputManager.SetCanJump(true);
+        InputManager.SetCanMove(true);
+        InputManager.SetCanShoot(true);
     }
 
     private void Start()
@@ -51,6 +54,9 @@ public class Player : MonoBehaviour
             PlayerDead();
             isDead = true;
             StartCoroutine(DelayedLoadScene("GameOverScene", 3.5f));
+            InputManager.SetCanJump(false);
+            InputManager.SetCanMove(false);
+            InputManager.SetCanShoot(false);
             playerControls.Disable();
             dialogScore.gameObject.SetActive(true);
             DialogScore.Instance.Show();

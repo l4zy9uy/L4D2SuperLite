@@ -1249,6 +1249,8 @@ MonoBehaviour:
     type: 3}
   allGunAmmoPrf: {fileID: 3218744107795719090, guid: 368037c752acd544f9859948c0795115,
     type: 3}
+  hand1: {fileID: 2412871684287940366}
+  hand2: {fileID: 2412871684914887851}
   spawnOffset: 1
 --- !u!114 &2412871683270695184
 MonoBehaviour:
