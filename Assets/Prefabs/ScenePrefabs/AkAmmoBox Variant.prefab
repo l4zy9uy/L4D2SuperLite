@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 88aa462b1e93f2947bec032e953ba29a, type: 3}
       propertyPath: m_Name
-      value: AkAmmoBox
+      value: AkAmmoBox Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 88aa462b1e93f2947bec032e953ba29a, type: 3}
       propertyPath: m_RootOrder
