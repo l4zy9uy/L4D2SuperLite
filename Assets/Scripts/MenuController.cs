@@ -13,6 +13,7 @@ public class MenuController : MonoBehaviour
     public GameObject soundManager;
     private string levelToLoad;
     [SerializeField] private GameObject noSavedGameDialog;
+    public static String currentMap;
 
     [Header("Volume Settings")]
     [SerializeField] private TextMeshProUGUI volumeTextValue;
@@ -191,4 +192,19 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(2);
         confirmationPrompt.SetActive(false);
     }
+
+    public void loadScene1()
+    {
+        SoundManager.Instance.menuAudio.Stop();
+        MenuController.currentMap = "MainScene";
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void loadScene2()
+    {
+        SoundManager.Instance.menuAudio.Stop();
+        MenuController.currentMap = "MazeScene";
+        SceneManager.LoadScene("MazeScene");
+    }
+
 }

@@ -17,7 +17,7 @@ public class GameOverMenu : MonoBehaviour
     public void PlayAgain()
     {
         // Load lại scene hiện tại (GameOverScene)
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene(MenuController.currentMap);
     }
     public void MainMenu()
     {
